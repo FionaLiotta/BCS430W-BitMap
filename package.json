@@ -1,0 +1,29 @@
+{
+  "name": "bitmap",
+  "version": "0.0.1",
+  "description": "Extension to display country of donators",
+  "main": "index.js",
+  "scripts": {
+    "cert": "node bin/generate_cert.js server",
+    "start": "node services/backend"
+  },
+  "keywords": [
+    "twitch",
+    "extension"
+  ],
+  "author": "Multiple",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@hapi/boom": "^8.0.1",
+    "@hapi/hapi": "^18.4.0",
+    "@hapi/inert": "^5.2.2",
+    "commander": "^2.15.0",
+    "dotenv": "^8.1.0",
+    "jsonwebtoken": "^8.2.0",
+    "mysql": "^2.17.1",
+    "nodemon": "^1.19.3",
+    "request": "^2.85.0",
+    "selfsigned": "^1.10.2",
+    "ws": "^7.1.2"
+  }
+}
