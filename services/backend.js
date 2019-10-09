@@ -21,7 +21,8 @@ const Boom = require('@hapi/boom');
 const ext = require('commander');
 const jsonwebtoken = require('jsonwebtoken');
 const request = require('request');
-const mysql = require('mysql');
+const Connection = require('tedious').Connection;
+const Request = require('tedious').Request;
 const WebSocket = require('ws');
 require('dotenv').config();
 
@@ -94,6 +95,13 @@ const server = new Hapi.Server(serverOptions);
     method: 'GET',
     path: '/user/query',
     handler: userQueryHandler,
+  });
+
+  // Handle queries for channel configuration.
+  server.route({
+    method: 'GET',
+    path: '/channel/config',
+    handler: channelConfigQueryHandler
   });
 
   // Start the server.
@@ -204,23 +212,53 @@ const country_emoji_ranges = ['\\u{1F1E6}[\\u{1F1E9}-\\u{1F1EC}\\u{1F1EE}\\u{1F1
 ];
 const country_emoji_rx = new RegExp(country_emoji_ranges.join('|'), 'ug');
 
-// connect to MySQL server
+// connect to Azure SQL server
 
-const sql = mysql.createConnection({
-    host: process.env.SQLSERVER,
-    database: process.env.SQLDB,
-    user: process.env.SQLUSERNAME,
-    password: process.env.SQLPASSWORD,
-    charset : 'utf8mb4'
+const AzureConfig = 
+{
+  server: process.env.SQLSERVER,
+  options: {
+    encrypt: true,
+    database: 'TwitchAPI'
+  },
+  authentication: {
+    type: "default",
+    options: {  
+      userName: process.env.SQLUSERNAME,
+      password: process.env.SQLPASSWORD
+    },
+  }
+}
+
+const sql = new Connection(AzureConfig);
+
+sql.on('connect', (err) => {
+  if(err)
+  {
+    console.log(err);
+  }
+  else
+  {
+    console.log('Connected to Azure SQL server.');
+  }
 });
 
-sql.connect((err) => {
-    if(err)
-    {
-        throw err;
-    }
-    console.log("Connected to MySQL server.");
-})
+// Handle configuration queries.
+// If no configuration is found for the channel ID, return the default config.
+function channelConfigQueryHandler()
+{
+  const payload = verifyAndDecode(req.headers.authorization);
+  console.log(payload);
+  //const configQuery = new Request(`SELECT * FROM dbo.masterList WHERE channel_id = ${payload.channel_id}`);
+
+}
+
+// Handle configuration updates.
+// If no configuration is found for the channel ID, create a new master table entry.
+function channelConfigUpdateHandler()
+{
+
+}
 
 // Handle incoming donation messages.
 // Expects req.payload to contain chat_message, user_id
@@ -235,7 +273,7 @@ function userDonationHandler(payload)
   if(emojiTest.match(country_emoji_rx))
   {
     console.log(`Found country code. Register user ${payload.user_id} with country ${emojiTest}`);
-    sql.query(`INSERT INTO testusers (userid, channelid, message) VALUES ('${payload.user_id}', '${payload.channel_id}', '${payload.chat_message}') ` , (err, result) => {
+    const addUser = new Request(`INSERT INTO testusers (userid, channelid, message) VALUES ('${payload.user_id}', '${payload.channel_id}', '${payload.chat_message}') ` , (err, result) => {
         if(err)
         {
             throw err;
@@ -245,6 +283,7 @@ function userDonationHandler(payload)
             console.log(`Added test user ${payload.user_id}`);
         }
     });
+    sql.execSql(addUser);
   }
   else
   {
