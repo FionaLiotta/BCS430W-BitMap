@@ -13,7 +13,6 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-
 const fs = require('fs');
 const Hapi = require('@hapi/hapi');
 const path = require('path');
@@ -21,7 +20,9 @@ const Boom = require('@hapi/boom');
 const ext = require('commander');
 const jsonwebtoken = require('jsonwebtoken');
 const request = require('request');
-const Connection = require('tedious').Connection;
+//const Connection = require('tedious').Connection;
+//const TYPES = require('tedious').TYPES;
+const sql = require('mssql');
 const Request = require('tedious').Request;
 const WebSocket = require('ws');
 require('dotenv').config();
@@ -90,19 +91,78 @@ if (fs.existsSync(serverPathRoot + '.crt') && fs.existsSync(serverPathRoot + '.k
 const server = new Hapi.Server(serverOptions);
 
 (async () => {
+
+  // ***
+  // SQL
+  // ***
+  try
+  {
+    await sql.connect('mssql://' + process.env.SQLUSERNAME + ':' + process.env.SQLPASSWORD + '@' + process.env.SQLSERVER + '/' + process.env.SQLDB);
+  }
+  catch (err)
+  {
+    console.log ('Error connecting to SQL server: \n' + err);
+  }
+
+  // ******
+  // Routes
+  // ******
   // Handle queries for a user's data.
   server.route({
     method: 'GET',
-    path: '/user/query',
-    handler: userQueryHandler,
-  });
-
-  // Handle queries for channel configuration.
-  server.route({
-    method: 'GET',
     path: '/channel/config',
-    handler: channelConfigQueryHandler
+    handler: channelConfigHandler,
   });
+  
+
+  async function createConfig(mapType, streamerCountry, channelId)
+  {
+    let configId = 0;
+    let newConfig = await sql.query(`INSERT INTO dbo.Config VALUES (N'${mapType}', N'${streamerCountry}', ${channelId}); select SCOPE_IDENTITY() as configID`);
+    console.log(JSON.stringify(newConfig));
+    return newConfig.recordset[0].configID;
+  }
+
+  //Handle requests for channel configurations
+  async function channelConfigHandler(req, h)
+  {
+    let configId;
+    // decode JWT so we can get channel/user_id etc.
+    let decodedjwt = verifyAndDecode(req.headers.authorization);
+    let {channel_id: channelId} = decodedjwt;
+    console.log('Got config request! ' + channelId);
+    
+    // Check that the JWT was there and valid.
+    if(decodedjwt)
+    {
+      console.log('JWT was OK.');
+
+      // Check if the channelId exists in the master table yet.
+      let findChannel = await sql.query(`SELECT ConfigID FROM dbo.masterList WHERE ChannelID = ${channelId}`);
+      console.log(JSON.stringify(findChannel));
+      // If it doesn't, add it with a default config.
+      if(findChannel.rowsAffected[0] === 0)
+      {
+        console.log('Channel not found. Add it with default config.');
+        configId = await createConfig('Globe', 'None', channelId);
+        let newChannel = await sql.query(`INSERT INTO masterList VALUES (${channelId}, ${configId})`);
+        console.log(JSON.stringify(newChannel));
+      }
+      // If it does, use its current configId
+      else
+      {
+        configId = findChannel.recordset[0].ConfigID;
+      }
+      // Grab the current config and send it back.
+      let currentConfig = await sql.query(`SELECT * FROM dbo.Config WHERE ConfigID = ${configId}`);
+      return h.response({status: 'JWT ok!', config: currentConfig.recordset[0]});
+    }
+    else
+    {
+      console.log('JWT missing or invalid.');
+      return h.response({status: 'JWT invalid.', config: ''});
+    }
+  }
 
   // Start the server.
   await server.start();
@@ -212,54 +272,6 @@ const country_emoji_ranges = ['\\u{1F1E6}[\\u{1F1E9}-\\u{1F1EC}\\u{1F1EE}\\u{1F1
 ];
 const country_emoji_rx = new RegExp(country_emoji_ranges.join('|'), 'ug');
 
-// connect to Azure SQL server
-
-const AzureConfig = 
-{
-  server: process.env.SQLSERVER,
-  options: {
-    encrypt: true,
-    database: 'TwitchAPI'
-  },
-  authentication: {
-    type: "default",
-    options: {  
-      userName: process.env.SQLUSERNAME,
-      password: process.env.SQLPASSWORD
-    },
-  }
-}
-
-const sql = new Connection(AzureConfig);
-
-sql.on('connect', (err) => {
-  if(err)
-  {
-    console.log(err);
-  }
-  else
-  {
-    console.log('Connected to Azure SQL server.');
-  }
-});
-
-// Handle configuration queries.
-// If no configuration is found for the channel ID, return the default config.
-function channelConfigQueryHandler()
-{
-  const payload = verifyAndDecode(req.headers.authorization);
-  console.log(payload);
-  //const configQuery = new Request(`SELECT * FROM dbo.masterList WHERE channel_id = ${payload.channel_id}`);
-
-}
-
-// Handle configuration updates.
-// If no configuration is found for the channel ID, create a new master table entry.
-function channelConfigUpdateHandler()
-{
-
-}
-
 // Handle incoming donation messages.
 // Expects req.payload to contain chat_message, user_id
 // If the donation contains a country code, register that user's country.
@@ -289,13 +301,6 @@ function userDonationHandler(payload)
   {
       console.log(`No country code at position 0. Check if ${payload.user_id} is already registered.`);
   }
-  return true;
-}
-
-function userQueryHandler(req)
-{
-  const payload = verifyAndDecode(req.headers.authorization);
-  console.log(payload);
   return true;
 }
 
