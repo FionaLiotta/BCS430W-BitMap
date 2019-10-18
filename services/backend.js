@@ -16,59 +16,11 @@
 const fs = require('fs');
 const Hapi = require('@hapi/hapi');
 const path = require('path');
-const Boom = require('@hapi/boom');
-const ext = require('commander');
-const jsonwebtoken = require('jsonwebtoken');
 const request = require('request');
-//const Connection = require('tedious').Connection;
-//const TYPES = require('tedious').TYPES;
 const sql = require('mssql');
-const Request = require('tedious').Request;
 const WebSocket = require('ws');
 require('dotenv').config();
-
-// The developer rig uses self-signed certificates.  Node doesn't accept them
-// by default.  Do not use this in production.
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-
-// Use verbose logging during development.  Set this to false for production.
-const verboseLogging = true;
-const verboseLog = verboseLogging ? console.log.bind(console) : () => { };
-
-// Service state variables
-const serverTokenDurationSec = 30;          // our tokens for pubsub expire after 30 seconds
-const userCooldownMs = 1000;                // maximum input rate per user to prevent bot abuse
-const userCooldownClearIntervalMs = 60000;  // interval to reset our tracking object
-const channelCooldownMs = 1000;             // maximum broadcast rate per channel
-const bearerPrefix = 'Bearer ';             // HTTP authorization headers have this prefix
-const channelCooldowns = {};                // rate limit compliance
-let userCooldowns = {};                     // spam prevention
-
-const STRINGS = {
-  secretEnv: usingValue('secret'),
-  clientIdEnv: usingValue('client-id'),
-  ownerIdEnv: usingValue('owner-id'),
-  serverStarted: 'Server running at %s',
-  secretMissing: missingValue('secret', 'EXT_SECRET'),
-  clientIdMissing: missingValue('client ID', 'EXT_CLIENT_ID'),
-  ownerIdMissing: missingValue('owner ID', 'EXT_OWNER_ID'),
-  messageSendError: 'Error sending message to channel %s: %s',
-  pubsubResponse: 'Message to c:%s returned %s',
-  cooldown: 'Please wait before clicking again',
-  invalidAuthHeader: 'Invalid authorization header',
-  invalidJwt: 'Invalid JWT',
-};
-
-ext.
-  version(require('../package.json').version).
-  option('-s, --secret <secret>', 'Extension secret').
-  option('-c, --client-id <client_id>', 'Extension client ID').
-  option('-o, --owner-id <owner_id>', 'Extension owner ID').
-  parse(process.argv);
-
-const ownerId = getOption('ownerId', 'EXT_OWNER_ID');
-const secret = Buffer.from(getOption('secret', 'EXT_SECRET'), 'base64');
-const clientId = getOption('clientId', 'EXT_CLIENT_ID');
+const twitch = require('./TwitchCommon.js');
 
 const serverOptions = {
   host: 'localhost',
@@ -104,140 +56,18 @@ const server = new Hapi.Server(serverOptions);
     console.log ('Error connecting to SQL server: \n' + err);
   }
 
-  // ******
-  // Routes
-  // ******
-  // Handle queries for a user's data.
-  server.route({
-    method: 'GET',
-    path: '/channel/config',
-    handler: channelConfigHandler,
-  });
-  
-
-  async function createConfig(mapType, streamerCountry, channelId)
-  {
-    let configId = 0;
-    let newConfig = await sql.query(`INSERT INTO dbo.Config VALUES (N'${mapType}', N'${streamerCountry}', ${channelId}); select SCOPE_IDENTITY() as configID`);
-    console.log(JSON.stringify(newConfig));
-    return newConfig.recordset[0].configID;
-  }
-
-  //Handle requests for channel configurations
-  async function channelConfigHandler(req, h)
-  {
-    let configId;
-    // decode JWT so we can get channel/user_id etc.
-    let decodedjwt = verifyAndDecode(req.headers.authorization);
-    let {channel_id: channelId} = decodedjwt;
-    console.log('Got config request! ' + channelId);
-    
-    // Check that the JWT was there and valid.
-    if(decodedjwt)
-    {
-      console.log('JWT was OK.');
-
-      // Check if the channelId exists in the master table yet.
-      let findChannel = await sql.query(`SELECT ConfigID FROM dbo.masterList WHERE ChannelID = ${channelId}`);
-      console.log(JSON.stringify(findChannel));
-      // If it doesn't, add it with a default config.
-      if(findChannel.rowsAffected[0] === 0)
-      {
-        console.log('Channel not found. Add it with default config.');
-        configId = await createConfig('Globe', 'None', channelId);
-        let newChannel = await sql.query(`INSERT INTO masterList VALUES (${channelId}, ${configId})`);
-        console.log(JSON.stringify(newChannel));
-      }
-      // If it does, use its current configId
-      else
-      {
-        configId = findChannel.recordset[0].ConfigID;
-      }
-      // Grab the current config and send it back.
-      let currentConfig = await sql.query(`SELECT * FROM dbo.Config WHERE ConfigID = ${configId}`);
-      return h.response({status: 'JWT ok!', config: currentConfig.recordset[0]});
-    }
-    else
-    {
-      console.log('JWT missing or invalid.');
-      return h.response({status: 'JWT invalid.', config: ''});
-    }
-  }
+  const routes = require('./routes/');
+  server.route(routes);
 
   // Start the server.
   await server.start();
-  console.log(STRINGS.serverStarted, server.info.uri);
+  console.log(twitch.STRINGS.serverStarted, server.info.uri);
 
   // Periodically clear cool-down tracking to prevent unbounded growth due to
   // per-session logged-out user tokens.
-  setInterval(() => { userCooldowns = {}; }, userCooldownClearIntervalMs);
+  setInterval(() => { twitch.userCooldowns = {}; }, twitch.userCooldownClearIntervalMs);
 })();
 
-function usingValue(name) {
-  return `Using environment variable for ${name}`;
-}
-
-function missingValue(name, variable) {
-  const option = name.charAt(0);
-  return `Extension ${name} required.\nUse argument "-${option} <${name}>" or environment variable "${variable}".`;
-}
-
-// Get options from the command line or the environment.
-function getOption(optionName, environmentName) {
-  const option = (() => {
-    if (ext[optionName]) {
-      return ext[optionName];
-    } else if (process.env[environmentName]) {
-      console.log(STRINGS[optionName + 'Env']);
-      return process.env[environmentName];
-    }
-    console.log(STRINGS[optionName + 'Missing']);
-    process.exit(1);
-  })();
-  console.log(`Using "${option}" for ${optionName}`);
-  return option;
-}
-
-// Verify the header and the enclosed JWT.
-function verifyAndDecode(header) {
-  if (header.startsWith(bearerPrefix)) {
-    try {
-      const token = header.substring(bearerPrefix.length);
-      return jsonwebtoken.verify(token, secret, { algorithms: ['HS256'] });
-    }
-    catch (ex) {
-      throw Boom.unauthorized(STRINGS.invalidJwt);
-    }
-  }
-  throw Boom.unauthorized(STRINGS.invalidAuthHeader);
-}
-
-// Create and return a JWT for use by this service.
-function makeServerToken(channelId) {
-  const payload = {
-    exp: Math.floor(Date.now() / 1000) + serverTokenDurationSec,
-    channel_id: channelId,
-    user_id: ownerId, // extension owner ID for the call to Twitch PubSub
-    role: 'external',
-    pubsub_perms: {
-      send: ['*'],
-    },
-  };
-  return jsonwebtoken.sign(payload, secret, { algorithm: 'HS256' });
-}
-
-function userIsInCooldown(opaqueUserId) {
-  // Check if the user is in cool-down.
-  const cooldown = userCooldowns[opaqueUserId];
-  const now = Date.now();
-  if (cooldown && cooldown > now) {
-    return true;
-  }
-
-  // Voting extensions must also track per-user votes to prevent skew.
-  userCooldowns[opaqueUserId] = now + userCooldownMs;
-  return false;
-}
 // **************************
 // * End Twitch Sample Code *
 // **************************
