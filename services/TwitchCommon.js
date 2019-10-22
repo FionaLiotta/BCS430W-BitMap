@@ -77,6 +77,9 @@ module.exports = {
 
     STRINGS : {
         serverStarted: 'Server running at %s',  
+        bearerPrefix: 'Bearer ',
+        messageSendError: 'Error sending message to channel %s: %s',
+        pubsubResponse: 'Message to c:%s returned %s',
       },
 
 

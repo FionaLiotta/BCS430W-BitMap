@@ -21,6 +21,7 @@ const sql = require('mssql');
 const WebSocket = require('ws');
 require('dotenv').config();
 const twitch = require('./TwitchCommon.js');
+const countryFlagEmoji = require('country-flag-emoji');
 
 const serverOptions = {
   host: 'localhost',
@@ -101,6 +102,7 @@ const country_emoji_ranges = ['\\u{1F1E6}[\\u{1F1E9}-\\u{1F1EC}\\u{1F1EE}\\u{1F1
 	'\\u{1F1FF}[\\u{1F1E6}\\u{1F1F2}\\u{1F1FC}]'
 ];
 const country_emoji_rx = new RegExp(country_emoji_ranges.join('|'), 'ug');
+const country_emoji_array = ['🇦🇨','🇦🇩','🇦🇪','🇦🇫','🇦🇬','🇦🇮','🇦🇱','🇦🇲','🇦🇴','🇦🇶','🇦🇷','🇦🇸','🇦🇹','🇦🇺','🇦🇼','🇦🇽','🇦🇿','🇧🇦','🇧🇧','🇧🇩','🇧🇪','🇧🇫','🇧🇬','🇧🇭','🇧🇮','🇧🇯','🇧🇱','🇧🇲','🇧🇳','🇧🇴','🇧🇶','🇧🇷','🇧🇸','🇧🇹','🇧🇻','🇧🇼','🇧🇾','🇧🇿','🇨🇦','🇨🇨','🇨🇩','🇨🇫','🇨🇬','🇨🇭','🇨🇮','🇨🇰','🇨🇱','🇨🇲','🇨🇳','🇨🇴','🇨🇵','🇨🇷','🇨🇺','🇨🇻','🇨🇼','🇨🇽','🇨🇾','🇨🇿','🇩🇪','🇩🇬','🇩🇯','🇩🇰','🇩🇲','🇩🇴','🇩🇿','🇪🇦','🇪🇨','🇪🇪','🇪🇬','🇪🇭','🇪🇷','🇪🇸','🇪🇹','🇪🇺','🇫🇮','🇫🇯','🇫🇰','🇫🇲','🇫🇴','🇫🇷','🇬🇦','🇬🇧','🇬🇩','🇬🇪','🇬🇫','🇬🇬','🇬🇭','🇬🇮','🇬🇱','🇬🇲','🇬🇳','🇬🇵','🇬🇶','🇬🇷','🇬🇸','🇬🇹','🇬🇺','🇬🇼','🇬🇾','🇭🇰','🇭🇲','🇭🇳','🇭🇷','🇭🇹','🇭🇺','🇮🇨','🇮🇩','🇮🇪','🇮🇱','🇮🇲','🇮🇳','🇮🇴','🇮🇶','🇮🇷','🇮🇸','🇮🇹','🇯🇪','🇯🇲','🇯🇴','🇯🇵','🇰🇪','🇰🇬','🇰🇭','🇰🇮','🇰🇲','🇰🇳','🇰🇵','🇰🇷','🇰🇼','🇰🇾','🇰🇿','🇱🇦','🇱🇧','🇱🇨','🇱🇮','🇱🇰','🇱🇷','🇱🇸','🇱🇹','🇱🇺','🇱🇻','🇱🇾','🇲🇦','🇲🇨','🇲🇩','🇲🇪','🇲🇫','🇲🇬','🇲🇭','🇲🇰','🇲🇱','🇲🇲','🇲🇳','🇲🇴','🇲🇵','🇲🇶','🇲🇷','🇲🇸','🇲🇹','🇲🇺','🇲🇻','🇲🇼','🇲🇽','🇲🇾','🇲🇿','🇳🇦','🇳🇨','🇳🇪','🇳🇫','🇳🇬','🇳🇮','🇳🇱','🇳🇴','🇳🇵','🇳🇷','🇳🇺','🇳🇿','🇴🇲','🇵🇦','🇵🇪','🇵🇫','🇵🇬','🇵🇭','🇵🇰','🇵🇱','🇵🇲','🇵🇳','🇵🇷','🇵🇸','🇵🇹','🇵🇼','🇵🇾','🇶🇦','🇷🇪','🇷🇴','🇷🇸','🇷🇺','🇷🇼','🇸🇦','🇸🇧','🇸🇨','🇸🇩','🇸🇪','🇸🇬','🇸🇭','🇸🇮','🇸🇯','🇸🇰','🇸🇱','🇸🇲','🇸🇳','🇸🇴','🇸🇷','🇸🇸','🇸🇹','🇸🇻','🇸🇽','🇸🇾','🇸🇿','🇹🇦','🇹🇨','🇹🇩','🇹🇫','🇹🇬','🇹🇭','🇹🇯','🇹🇰','🇹🇱','🇹🇲','🇹🇳','🇹🇴','🇹🇷','🇹🇹','🇹🇻','🇹🇼','🇹🇿','🇺🇦','🇺🇬','🇺🇲','🇺🇳','🇺🇸','🇺🇾','🇺🇿','🇻🇦','🇻🇨','🇻🇪','🇻🇬','🇻🇮','🇻🇳','🇻🇺','🇼🇫','🇼🇸','🇽🇰','🇾🇪','🇾🇹','🇿🇦','🇿🇲','🇿🇼',];
 
 // Handle incoming donation messages.
 // Expects req.payload to contain chat_message, user_id
@@ -115,6 +117,8 @@ function userDonationHandler(payload)
   if(emojiTest.match(country_emoji_rx))
   {
     console.log(`Found country code. Register user ${payload.user_id} with country ${emojiTest}`);
+
+    /* OLD SQL DRIVER
     const addUser = new Request(`INSERT INTO testusers (userid, channelid, message) VALUES ('${payload.user_id}', '${payload.channel_id}', '${payload.chat_message}') ` , (err, result) => {
         if(err)
         {
@@ -126,6 +130,11 @@ function userDonationHandler(payload)
         }
     });
     sql.execSql(addUser);
+    */
+   // `INSERT INTO dbo.Users (user_id, country_id) VALUES ('${payload.user_id}', '${country_emoji_array.findIndex(emojiTest)}')`
+   console.log(`Country code index is : ${country_emoji_array.findIndex((element) => {
+     return (element === emojiTest);
+   })}`);
   }
   else
   {
@@ -162,7 +171,7 @@ connection.onmessage = e => {
         console.log(channel_id, user_id, chat_message);
         const payload = {channel_id, user_id, chat_message};
         userDonationHandler(payload);
-        sendDebugMessageBroadcast(payload);
+        //sendDebugMessageBroadcast(payload);
     }
 }
 
@@ -171,7 +180,7 @@ function sendDebugMessageBroadcast(payload) {
     const headers = {
       'Client-ID': clientId,
       'Content-Type': 'application/json',
-      'Authorization': bearerPrefix + makeServerToken(payload.channel_id),
+      'Authorization': twitch.STRINGS.bearerPrefix + twitch.makeServerToken(payload.channel_id),
     };
   
     // Create the POST body for the Twitch API request.
@@ -193,9 +202,9 @@ function sendDebugMessageBroadcast(payload) {
       }
       , (err, res) => {
         if (err) {
-          console.log(STRINGS.messageSendError, payload.channel_id, err);
+          console.log(twitch.STRINGS.messageSendError, payload.channel_id, err);
         } else {
-          console.log(STRINGS.pubsubResponse, payload.channel_id, res.statusCode);
+          console.log(twitch.STRINGS.pubsubResponse, payload.channel_id, res.statusCode);
         }
       });
   }
