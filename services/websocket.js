@@ -75,6 +75,11 @@ async function userDonationHandler(payload)
     console.log('No emoji found, no action needed.');
   }
 
+  let logDonation = await sql.query(`INSERT INTO dbo.Donations (channel_id, chat_message, user_id, country_id, bits_used) 
+  VALUES (${payload.channel_id}, N'${payload.chat_message}', ${payload.user_id}, ${country_id}, ${payload.bits_used})
+  `);
+  console.log('Logged donation: ' + JSON.stringify(logDonation));
+
   return ({
     channel_id: payload.channel_id,
     chat_message: payload.chat_message,
