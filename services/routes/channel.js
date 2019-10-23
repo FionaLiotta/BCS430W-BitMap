@@ -49,7 +49,7 @@ module.exports = [
       // If it does, use its current configId
       else
       {
-        configId = findChannel.recordset[0].ConfigID;
+        configId = findChannel.recordset[0].Config_ID;
       }
       // Grab the current config and send it back.
       let currentConfig = await sql.query(`SELECT * FROM dbo.Config WHERE Config_id = ${configId}`);
