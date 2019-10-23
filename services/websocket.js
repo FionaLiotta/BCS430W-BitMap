@@ -118,11 +118,11 @@ connection.onmessage = async e => {
         const payload = {channel_id, user_id, chat_message, bits_used};
         const donationResult = await userDonationHandler(payload);
         console.log(donationResult);
-        sendDebugMessageBroadcast(donationResult);
+        sendBroadcast(donationResult);
     }
 }
 
-function sendDebugMessageBroadcast(payload) {
+function sendBroadcast(payload) {
     // Set the HTTP headers required by the Twitch API.
     const headers = {
       'Client-ID': clientId,
