@@ -109,38 +109,49 @@ const country_emoji_array = ['🇦🇨','🇦🇩','🇦🇪','🇦🇫','🇦�
 // If the donation contains a country code, register that user's country.
 // If it does not, check if that user has previously registered.
 // If they are registered, send a message to the frontend with data to display.
-function userDonationHandler(payload)
+async function userDonationHandler(payload)
 {
   // This line pulls the 0th and 2nd character's code points, which will be 16 bit surrogate pairs for the country code if this is a country emoji
   const emojiTest = (String.fromCodePoint(payload.chat_message.codePointAt(0)) + String.fromCodePoint(payload.chat_message.codePointAt(2)));
-  console.log(emojiTest);
-  if(emojiTest.match(country_emoji_rx))
-  {
-    console.log(`Found country code. Register user ${payload.user_id} with country ${emojiTest}`);
+  const hasEmoji = emojiTest.match(country_emoji_rx);
+  let country_id = -1;
 
-    /* OLD SQL DRIVER
-    const addUser = new Request(`INSERT INTO testusers (userid, channelid, message) VALUES ('${payload.user_id}', '${payload.channel_id}', '${payload.chat_message}') ` , (err, result) => {
-        if(err)
-        {
-            throw err;
-        }
-        else
-        {
-            console.log(`Added test user ${payload.user_id}`);
-        }
-    });
-    sql.execSql(addUser);
-    */
-   // `INSERT INTO dbo.Users (user_id, country_id) VALUES ('${payload.user_id}', '${country_emoji_array.findIndex(emojiTest)}')`
-   console.log(`Country code index is : ${country_emoji_array.findIndex((element) => {
-     return (element === emojiTest);
-   })}`);
+  // Check if user is registered.
+  let registeredResponse = await sql.query(`SELECT * FROM dbo.Users WHERE user_id = ${payload.user_id}`);
+  console.log('Checking if user is registered: ' + JSON.stringify(registeredResponse));
+  if(registeredResponse.recordset[0]){
+    country_id = registeredResponse.recordset[0].country_id;
   }
+  console.log('country_id and emojiTest: ' + country_id + emojiTest);
+  // If we did not get back a valid country ID, register the new user.
+  if(hasEmoji)
+  {
+    // get country_id for emoji
+    country_id = country_emoji_array.findIndex((element) => {
+      return (element === emojiTest);
+    });
+    console.log(`Found country code. Register user ${payload.user_id} with country ${emojiTest}:${country_id}`);
+    let updateCountry = await sql.query(`
+      IF EXISTS (SELECT * FROM dbo.Users WHERE user_id=${payload.user_id})
+        UPDATE dbo.Users SET country_id=${country_id} WHERE user_id=${payload.user_id}
+      ELSE
+        INSERT INTO dbo.Users (user_id, country_id) VALUES (${payload.user_id}, ${country_id})
+    `);
+    console.log('Registered user: ' + JSON.stringify(updateCountry));
+  }
+  // If no country emoji, do nothing.
   else
   {
-      console.log(`No country code at position 0. Check if ${payload.user_id} is already registered.`);
+    console.log('No emoji found, no action needed.');
   }
-  return true;
+
+  return ({
+    channel_id: payload.channel_id,
+    chat_message: payload.chat_message,
+    user_id: payload.user_id,
+    country_id: country_id,
+    bits_used: payload.bits_used
+  });
 }
 
 // Listening for mock data on the backend now
@@ -152,7 +163,7 @@ connection.onopen = () => {
     console.log("Opened connection to mock data server.");
 }
 
-connection.onmessage = e => {
+connection.onmessage = async e => {
     console.log("Heard mock data.");
     //console.log(e);
 
@@ -167,11 +178,12 @@ connection.onmessage = e => {
     {
         const {data: {message}} = JSON.parse(eData);
         const parsedMsg = JSON.parse(message);
-        const {data: {channel_id, user_id, chat_message}} = parsedMsg;
-        console.log(channel_id, user_id, chat_message);
-        const payload = {channel_id, user_id, chat_message};
-        userDonationHandler(payload);
-        //sendDebugMessageBroadcast(payload);
+        const {data: {channel_id, user_id, chat_message, bits_used}} = parsedMsg;
+        console.log(channel_id, user_id, chat_message, bits_used);
+        const payload = {channel_id, user_id, chat_message, bits_used};
+        const donationResult = await userDonationHandler(payload);
+        console.log(donationResult);
+        sendDebugMessageBroadcast(donationResult);
     }
 }
 
@@ -190,7 +202,7 @@ function sendDebugMessageBroadcast(payload) {
       message: JSON.stringify(payload),
       targets: ['broadcast'],
     });
-  
+
     // Send the broadcast request to the Twitch API.
     //verboseLog(STRINGS.colorBroadcast, currentColor, channelId);
     request(

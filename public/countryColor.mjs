@@ -1,1038 +1,1038 @@
 export const countryColor = 
 {
-    "Ascension Island": {
+    "0": {
         "name": "Ascension Island",
         "color": "#FF0900"
     },
-    "Andorra": {
+    "1": {
         "name": "Andorra",
         "color": "#FF1100"
     },
-    "United Arab Emirates": {
+    "2": {
         "name": "United Arab Emirates",
         "color": "#FF1A00"
     },
-    "Afghanistan": {
+    "3": {
         "name": "Afghanistan",
         "color": "#FF2200"
     },
-    "Antigua & Barbuda": {
+    "4": {
         "name": "Antigua & Barbuda",
         "color": "#FF2B00"
     },
-    "Anguilla": {
+    "5": {
         "name": "Anguilla",
         "color": "#FF3300"
     },
-    "Albania": {
+    "6": {
         "name": "Albania",
         "color": "#FF3C00"
     },
-    "Armenia": {
+    "7": {
         "name": "Armenia",
         "color": "#FF4400"
     },
-    "Angola": {
+    "8": {
         "name": "Angola",
         "color": "#FF4D00"
     },
-    "Antarctica": {
+    "9": {
         "name": "Antarctica",
         "color": "#FF5500"
     },
-    "Argentina": {
+    "10": {
         "name": "Argentina",
         "color": "#FF5E00"
     },
-    "American Samoa": {
+    "11": {
         "name": "American Samoa",
         "color": "#FF6600"
     },
-    "Austria": {
+    "12": {
         "name": "Austria",
         "color": "#FF6E00"
     },
-    "Australia": {
+    "13": {
         "name": "Australia",
         "color": "#FF7700"
     },
-    "Aruba": {
+    "14": {
         "name": "Aruba",
         "color": "#FF8000"
     },
-    "Åland Islands": {
+    "15": {
         "name": "Åland Islands",
         "color": "#FF8800"
     },
-    "Azerbaijan": {
+    "16": {
         "name": "Azerbaijan",
         "color": "#FF9100"
     },
-    "Bosnia & Herzegovina": {
+    "17": {
         "name": "Bosnia & Herzegovina",
         "color": "#FF9900"
     },
-    "Barbados": {
+    "18": {
         "name": "Barbados",
         "color": "#FFA200"
     },
-    "Bangladesh": {
+    "19": {
         "name": "Bangladesh",
         "color": "#FFAA00"
     },
-    "Belgium": {
+    "20": {
         "name": "Belgium",
         "color": "#FFB300"
     },
-    "Burkina Faso": {
+    "21": {
         "name": "Burkina Faso",
         "color": "#FFBB00"
     },
-    "Bulgaria": {
+    "22": {
         "name": "Bulgaria",
         "color": "#FFC300"
     },
-    "Bahrain": {
+    "23": {
         "name": "Bahrain",
         "color": "#FFCC00"
     },
-    "Burundi": {
+    "24": {
         "name": "Burundi",
         "color": "#FFD500"
     },
-    "Benin": {
+    "25": {
         "name": "Benin",
         "color": "#FFDD00"
     },
-    "St. Barthélemy": {
+    "26": {
         "name": "St. Barthélemy",
         "color": "#FFE500"
     },
-    "Bermuda": {
+    "27": {
         "name": "Bermuda",
         "color": "#FFEE00"
     },
-    "Brunei": {
+    "28": {
         "name": "Brunei",
         "color": "#FFF700"
     },
-    "Bolivia": {
+    "29": {
         "name": "Bolivia",
         "color": "#FFFF00"
     },
-    "Caribbean Netherlands": {
+    "30": {
         "name": "Caribbean Netherlands",
         "color": "#F6FF00"
     },
-    "Brazil": {
+    "31": {
         "name": "Brazil",
         "color": "#EEFF00"
     },
-    "Bahamas": {
+    "32": {
         "name": "Bahamas",
         "color": "#E6FF00"
     },
-    "Bhutan": {
+    "33": {
         "name": "Bhutan",
         "color": "#DDFF00"
     },
-    "Bouvet Island": {
+    "34": {
         "name": "Bouvet Island",
         "color": "#D4FF00"
     },
-    "Botswana": {
+    "35": {
         "name": "Botswana",
         "color": "#CCFF00"
     },
-    "Belarus": {
+    "36": {
         "name": "Belarus",
         "color": "#C3FF00"
     },
-    "Belize": {
+    "37": {
         "name": "Belize",
         "color": "#BBFF00"
     },
-    "Canada": {
+    "38": {
         "name": "Canada",
         "color": "#B2FF00"
     },
-    "Cocos (Keeling) Islands": {
+    "39": {
         "name": "Cocos (Keeling) Islands",
         "color": "#AAFF00"
     },
-    "Congo - Kinshasa": {
+    "40": {
         "name": "Congo - Kinshasa",
         "color": "#A1FF00"
     },
-    "Central African Republic": {
+    "41": {
         "name": "Central African Republic",
         "color": "#99FF00"
     },
-    "Congo - Brazzaville": {
+    "42": {
         "name": "Congo - Brazzaville",
         "color": "#91FF00"
     },
-    "Switzerland": {
+    "43": {
         "name": "Switzerland",
         "color": "#88FF00"
     },
-    "Côte d’Ivoire": {
+    "44": {
         "name": "Côte d’Ivoire",
         "color": "#80FF00"
     },
-    "Cook Islands": {
+    "45": {
         "name": "Cook Islands",
         "color": "#77FF00"
     },
-    "Chile": {
+    "46": {
         "name": "Chile",
         "color": "#6EFF00"
     },
-    "Cameroon": {
+    "47": {
         "name": "Cameroon",
         "color": "#66FF00"
     },
-    "China": {
+    "48": {
         "name": "China",
         "color": "#5EFF00"
     },
-    "Colombia": {
+    "49": {
         "name": "Colombia",
         "color": "#55FF00"
     },
-    "Clipperton Island": {
+    "50": {
         "name": "Clipperton Island",
         "color": "#4CFF00"
     },
-    "Costa Rica": {
+    "51": {
         "name": "Costa Rica",
         "color": "#44FF00"
     },
-    "Cuba": {
+    "52": {
         "name": "Cuba",
         "color": "#3BFF00"
     },
-    "Cape Verde": {
+    "53": {
         "name": "Cape Verde",
         "color": "#33FF00"
     },
-    "Curaçao": {
+    "54": {
         "name": "Curaçao",
         "color": "#2BFF00"
     },
-    "Christmas Island": {
+    "55": {
         "name": "Christmas Island",
         "color": "#22FF00"
     },
-    "Cyprus": {
+    "56": {
         "name": "Cyprus",
         "color": "#1AFF00"
     },
-    "Czechia": {
+    "57": {
         "name": "Czechia",
         "color": "#11FF00"
     },
-    "Germany": {
+    "58": {
         "name": "Germany",
         "color": "#08FF00"
     },
-    "Diego Garcia": {
+    "59": {
         "name": "Diego Garcia",
         "color": "#00FF00"
     },
-    "Djibouti": {
+    "60": {
         "name": "Djibouti",
         "color": "#00FF09"
     },
-    "Denmark": {
+    "61": {
         "name": "Denmark",
         "color": "#00FF11"
     },
-    "Dominica": {
+    "62": {
         "name": "Dominica",
         "color": "#00FF19"
     },
-    "Dominican Republic": {
+    "63": {
         "name": "Dominican Republic",
         "color": "#00FF22"
     },
-    "Algeria": {
+    "64": {
         "name": "Algeria",
         "color": "#00FF2B"
     },
-    "Ceuta & Melilla": {
+    "65": {
         "name": "Ceuta & Melilla",
         "color": "#00FF33"
     },
-    "Ecuador": {
+    "66": {
         "name": "Ecuador",
         "color": "#00FF3C"
     },
-    "Estonia": {
+    "67": {
         "name": "Estonia",
         "color": "#00FF44"
     },
-    "Egypt": {
+    "68": {
         "name": "Egypt",
         "color": "#00FF4D"
     },
-    "Western Sahara": {
+    "69": {
         "name": "Western Sahara",
         "color": "#00FF55"
     },
-    "Eritrea": {
+    "70": {
         "name": "Eritrea",
         "color": "#00FF5E"
     },
-    "Spain": {
+    "71": {
         "name": "Spain",
         "color": "#00FF66"
     },
-    "Ethiopia": {
+    "72": {
         "name": "Ethiopia",
         "color": "#00FF6F"
     },
-    "European Union": {
+    "73": {
         "name": "European Union",
         "color": "#00FF77"
     },
-    "Finland": {
+    "74": {
         "name": "Finland",
         "color": "#00FF80"
     },
-    "Fiji": {
+    "75": {
         "name": "Fiji",
         "color": "#00FF88"
     },
-    "Falkland Islands": {
+    "76": {
         "name": "Falkland Islands",
         "color": "#00FF91"
     },
-    "Micronesia": {
+    "77": {
         "name": "Micronesia",
         "color": "#00FF99"
     },
-    "Faroe Islands": {
+    "78": {
         "name": "Faroe Islands",
         "color": "#00FFA2"
     },
-    "France": {
+    "79": {
         "name": "France",
         "color": "#00FFAA"
     },
-    "Gabon": {
+    "80": {
         "name": "Gabon",
         "color": "#00FFB3"
     },
-    "United Kingdom": {
+    "81": {
         "name": "United Kingdom",
         "color": "#00FFBB"
     },
-    "Grenada": {
+    "82": {
         "name": "Grenada",
         "color": "#00FFC4"
     },
-    "Georgia": {
+    "83": {
         "name": "Georgia",
         "color": "#00FFCC"
     },
-    "French Guiana": {
+    "84": {
         "name": "French Guiana",
         "color": "#00FFD5"
     },
-    "Guernsey": {
+    "85": {
         "name": "Guernsey",
         "color": "#00FFDD"
     },
-    "Ghana": {
+    "86": {
         "name": "Ghana",
         "color": "#00FFE6"
     },
-    "Gibraltar": {
+    "87": {
         "name": "Gibraltar",
         "color": "#00FFEE"
     },
-    "Greenland": {
+    "88": {
         "name": "Greenland",
         "color": "#00FFF7"
     },
-    "Gambia": {
+    "89": {
         "name": "Gambia",
         "color": "#00FFFF"
     },
-    "Guinea": {
+    "90": {
         "name": "Guinea",
         "color": "#00F6FF"
     },
-    "Guadeloupe": {
+    "91": {
         "name": "Guadeloupe",
         "color": "#00EEFF"
     },
-    "Equatorial Guinea": {
+    "92": {
         "name": "Equatorial Guinea",
         "color": "#00E5FF"
     },
-    "Greece": {
+    "93": {
         "name": "Greece",
         "color": "#00DDFF"
     },
-    "South Georgia & South Sandwich Islands": {
+    "94": {
         "name": "South Georgia & South Sandwich Islands",
         "color": "#00D4FF"
     },
-    "Guatemala": {
+    "95": {
         "name": "Guatemala",
         "color": "#00CCFF"
     },
-    "Guam": {
+    "96": {
         "name": "Guam",
         "color": "#00C3FF"
     },
-    "Guinea-Bissau": {
+    "97": {
         "name": "Guinea-Bissau",
         "color": "#00BBFF"
     },
-    "Guyana": {
+    "98": {
         "name": "Guyana",
         "color": "#00B2FF"
     },
-    "Hong Kong SAR China": {
+    "99": {
         "name": "Hong Kong SAR China",
         "color": "#00AAFF"
     },
-    "Heard & McDonald Islands": {
+    "100": {
         "name": "Heard & McDonald Islands",
         "color": "#00A1FF"
     },
-    "Honduras": {
+    "101": {
         "name": "Honduras",
         "color": "#0099FF"
     },
-    "Croatia": {
+    "102": {
         "name": "Croatia",
         "color": "#0091FF"
     },
-    "Haiti": {
+    "103": {
         "name": "Haiti",
         "color": "#0088FF"
     },
-    "Hungary": {
+    "104": {
         "name": "Hungary",
         "color": "#007FFF"
     },
-    "Canary Islands": {
+    "105": {
         "name": "Canary Islands",
         "color": "#0077FF"
     },
-    "Indonesia": {
+    "106": {
         "name": "Indonesia",
         "color": "#006EFF"
     },
-    "Ireland": {
+    "107": {
         "name": "Ireland",
         "color": "#0066FF"
     },
-    "Israel": {
+    "108": {
         "name": "Israel",
         "color": "#005EFF"
     },
-    "Isle of Man": {
+    "109": {
         "name": "Isle of Man",
         "color": "#0055FF"
     },
-    "India": {
+    "110": {
         "name": "India",
         "color": "#004CFF"
     },
-    "British Indian Ocean Territory": {
+    "111": {
         "name": "British Indian Ocean Territory",
         "color": "#0044FF"
     },
-    "Iraq": {
+    "112": {
         "name": "Iraq",
         "color": "#003BFF"
     },
-    "Iran": {
+    "113": {
         "name": "Iran",
         "color": "#0033FF"
     },
-    "Iceland": {
+    "114": {
         "name": "Iceland",
         "color": "#002BFF"
     },
-    "Italy": {
+    "115": {
         "name": "Italy",
         "color": "#0022FF"
     },
-    "Jersey": {
+    "116": {
         "name": "Jersey",
         "color": "#0019FF"
     },
-    "Jamaica": {
+    "117": {
         "name": "Jamaica",
         "color": "#0011FF"
     },
-    "Jordan": {
+    "118": {
         "name": "Jordan",
         "color": "#0008FF"
     },
-    "Japan": {
+    "119": {
         "name": "Japan",
         "color": "#0000FF"
     },
-    "Kenya": {
+    "120": {
         "name": "Kenya",
         "color": "#0800FF"
     },
-    "Kyrgyzstan": {
+    "121": {
         "name": "Kyrgyzstan",
         "color": "#1100FF"
     },
-    "Cambodia": {
+    "122": {
         "name": "Cambodia",
         "color": "#1900FF"
     },
-    "Kiribati": {
+    "123": {
         "name": "Kiribati",
         "color": "#2200FF"
     },
-    "Comoros": {
+    "124": {
         "name": "Comoros",
         "color": "#2A00FF"
     },
-    "St. Kitts & Nevis": {
+    "125": {
         "name": "St. Kitts & Nevis",
         "color": "#3300FF"
     },
-    "North Korea": {
+    "126": {
         "name": "North Korea",
         "color": "#3C00FF"
     },
-    "South Korea": {
+    "127": {
         "name": "South Korea",
         "color": "#4400FF"
     },
-    "Kuwait": {
+    "128": {
         "name": "Kuwait",
         "color": "#4D00FF"
     },
-    "Cayman Islands": {
+    "129": {
         "name": "Cayman Islands",
         "color": "#5500FF"
     },
-    "Kazakhstan": {
+    "130": {
         "name": "Kazakhstan",
         "color": "#5E00FF"
     },
-    "Laos": {
+    "131": {
         "name": "Laos",
         "color": "#6600FF"
     },
-    "Lebanon": {
+    "132": {
         "name": "Lebanon",
         "color": "#6E00FF"
     },
-    "St. Lucia": {
+    "133": {
         "name": "St. Lucia",
         "color": "#7700FF"
     },
-    "Liechtenstein": {
+    "134": {
         "name": "Liechtenstein",
         "color": "#7F00FF"
     },
-    "Sri Lanka": {
+    "135": {
         "name": "Sri Lanka",
         "color": "#8800FF"
     },
-    "Liberia": {
+    "136": {
         "name": "Liberia",
         "color": "#9000FF"
     },
-    "Lesotho": {
+    "137": {
         "name": "Lesotho",
         "color": "#9900FF"
     },
-    "Lithuania": {
+    "138": {
         "name": "Lithuania",
         "color": "#A200FF"
     },
-    "Luxembourg": {
+    "139": {
         "name": "Luxembourg",
         "color": "#AA00FF"
     },
-    "Latvia": {
+    "140": {
         "name": "Latvia",
         "color": "#B300FF"
     },
-    "Libya": {
+    "141": {
         "name": "Libya",
         "color": "#BB00FF"
     },
-    "Morocco": {
+    "142": {
         "name": "Morocco",
         "color": "#C300FF"
     },
-    "Monaco": {
+    "143": {
         "name": "Monaco",
         "color": "#CC00FF"
     },
-    "Moldova": {
+    "144": {
         "name": "Moldova",
         "color": "#D400FF"
     },
-    "Montenegro": {
+    "145": {
         "name": "Montenegro",
         "color": "#DD00FF"
     },
-    "St. Martin": {
+    "146": {
         "name": "St. Martin",
         "color": "#E500FF"
     },
-    "Madagascar": {
+    "147": {
         "name": "Madagascar",
         "color": "#EE00FF"
     },
-    "Marshall Islands": {
+    "148": {
         "name": "Marshall Islands",
         "color": "#F600FF"
     },
-    "Macedonia": {
+    "149": {
         "name": "Macedonia",
         "color": "#FF00FF"
     },
-    "Mali": {
+    "150": {
         "name": "Mali",
         "color": "#FF00F6"
     },
-    "Myanmar (Burma)": {
+    "151": {
         "name": "Myanmar (Burma)",
         "color": "#FF00EE"
     },
-    "Mongolia": {
+    "152": {
         "name": "Mongolia",
         "color": "#FF00E6"
     },
-    "Macau SAR China": {
+    "153": {
         "name": "Macau SAR China",
         "color": "#FF00DD"
     },
-    "Northern Mariana Islands": {
+    "154": {
         "name": "Northern Mariana Islands",
         "color": "#FF00D4"
     },
-    "Martinique": {
+    "155": {
         "name": "Martinique",
         "color": "#FF00CC"
     },
-    "Mauritania": {
+    "156": {
         "name": "Mauritania",
         "color": "#FF00C3"
     },
-    "Montserrat": {
+    "157": {
         "name": "Montserrat",
         "color": "#FF00BB"
     },
-    "Malta": {
+    "158": {
         "name": "Malta",
         "color": "#FF00B2"
     },
-    "Mauritius": {
+    "159": {
         "name": "Mauritius",
         "color": "#FF00AA"
     },
-    "Maldives": {
+    "160": {
         "name": "Maldives",
         "color": "#FF00A1"
     },
-    "Malawi": {
+    "161": {
         "name": "Malawi",
         "color": "#FF0099"
     },
-    "Mexico": {
+    "162": {
         "name": "Mexico",
         "color": "#FF0091"
     },
-    "Malaysia": {
+    "163": {
         "name": "Malaysia",
         "color": "#FF0088"
     },
-    "Mozambique": {
+    "164": {
         "name": "Mozambique",
         "color": "#FF0080"
     },
-    "Namibia": {
+    "165": {
         "name": "Namibia",
         "color": "#FF0077"
     },
-    "New Caledonia": {
+    "166": {
         "name": "New Caledonia",
         "color": "#FF006E"
     },
-    "Niger": {
+    "167": {
         "name": "Niger",
         "color": "#FF0066"
     },
-    "Norfolk Island": {
+    "168": {
         "name": "Norfolk Island",
         "color": "#FF005D"
     },
-    "Nigeria": {
+    "169": {
         "name": "Nigeria",
         "color": "#FF0055"
     },
-    "Nicaragua": {
+    "170": {
         "name": "Nicaragua",
         "color": "#FF004C"
     },
-    "Netherlands": {
+    "171": {
         "name": "Netherlands",
         "color": "#FF0044"
     },
-    "Norway": {
+    "172": {
         "name": "Norway",
         "color": "#FF003B"
     },
-    "Nepal": {
+    "173": {
         "name": "Nepal",
         "color": "#FF0033"
     },
-    "Nauru": {
+    "174": {
         "name": "Nauru",
         "color": "#FF002B"
     },
-    "Niue": {
+    "175": {
         "name": "Niue",
         "color": "#FF0022"
     },
-    "New Zealand": {
+    "176": {
         "name": "New Zealand",
         "color": "#FF001A"
     },
-    "Oman": {
+    "177": {
         "name": "Oman",
         "color": "#FF0011"
     },
-    "Panama": {
+    "178": {
         "name": "Panama",
         "color": "#FF0008"
     },
-    "Peru": {
+    "179": {
         "name": "Peru",
         "color": "#FF0000"
     },
-    "French Polynesia": {
+    "180": {
         "name": "French Polynesia",
         "color": "#FF0900"
     },
-    "Papua New Guinea": {
+    "181": {
         "name": "Papua New Guinea",
         "color": "#FF8880"
     },
-    "Philippines": {
+    "182": {
         "name": "Philippines",
         "color": "#FF8C80"
     },
-    "Pakistan": {
+    "183": {
         "name": "Pakistan",
         "color": "#FF9180"
     },
-    "Poland": {
+    "184": {
         "name": "Poland",
         "color": "#FF9580"
     },
-    "St. Pierre & Miquelon": {
+    "185": {
         "name": "St. Pierre & Miquelon",
         "color": "#FF9980"
     },
-    "Pitcairn Islands": {
+    "186": {
         "name": "Pitcairn Islands",
         "color": "#FF9D80"
     },
-    "Puerto Rico": {
+    "187": {
         "name": "Puerto Rico",
         "color": "#FFA280"
     },
-    "Palestinian Territories": {
+    "188": {
         "name": "Palestinian Territories",
         "color": "#FFA680"
     },
-    "Portugal": {
+    "189": {
         "name": "Portugal",
         "color": "#FFAA80"
     },
-    "Palau": {
+    "190": {
         "name": "Palau",
         "color": "#FFAE80"
     },
-    "Paraguay": {
+    "191": {
         "name": "Paraguay",
         "color": "#FFB380"
     },
-    "Qatar": {
+    "192": {
         "name": "Qatar",
         "color": "#FFB780"
     },
-    "Réunion": {
+    "193": {
         "name": "Réunion",
         "color": "#FFBB80"
     },
-    "Romania": {
+    "194": {
         "name": "Romania",
         "color": "#FFBF80"
     },
-    "Serbia": {
+    "195": {
         "name": "Serbia",
         "color": "#FFC380"
     },
-    "Russia": {
+    "196": {
         "name": "Russia",
         "color": "#FFC880"
     },
-    "Rwanda": {
+    "197": {
         "name": "Rwanda",
         "color": "#FFCC80"
     },
-    "Saudi Arabia": {
+    "198": {
         "name": "Saudi Arabia",
         "color": "#FFD080"
     },
-    "Solomon Islands": {
+    "199": {
         "name": "Solomon Islands",
         "color": "#FFD480"
     },
-    "Seychelles": {
+    "200": {
         "name": "Seychelles",
         "color": "#FFD980"
     },
-    "Sudan": {
+    "201": {
         "name": "Sudan",
         "color": "#FFDD80"
     },
-    "Sweden": {
+    "202": {
         "name": "Sweden",
         "color": "#FFE180"
     },
-    "Singapore": {
+    "203": {
         "name": "Singapore",
         "color": "#FFE680"
     },
-    "St. Helena": {
+    "204": {
         "name": "St. Helena",
         "color": "#FFEA80"
     },
-    "Slovenia": {
+    "205": {
         "name": "Slovenia",
         "color": "#FFEE80"
     },
-    "Svalbard & Jan Mayen": {
+    "206": {
         "name": "Svalbard & Jan Mayen",
         "color": "#FFF280"
     },
-    "Slovakia": {
+    "207": {
         "name": "Slovakia",
         "color": "#FFF780"
     },
-    "Sierra Leone": {
+    "208": {
         "name": "Sierra Leone",
         "color": "#FFFB80"
     },
-    "San Marino": {
+    "209": {
         "name": "San Marino",
         "color": "#FFFF80"
     },
-    "Senegal": {
+    "210": {
         "name": "Senegal",
         "color": "#FBFF80"
     },
-    "Somalia": {
+    "211": {
         "name": "Somalia",
         "color": "#F7FF80"
     },
-    "Suriname": {
+    "212": {
         "name": "Suriname",
         "color": "#F2FF80"
     },
-    "South Sudan": {
+    "213": {
         "name": "South Sudan",
         "color": "#EEFF80"
     },
-    "São Tomé & Príncipe": {
+    "214": {
         "name": "São Tomé & Príncipe",
         "color": "#EAFF80"
     },
-    "El Salvador": {
+    "215": {
         "name": "El Salvador",
         "color": "#E5FF80"
     },
-    "Sint Maarten": {
+    "216": {
         "name": "Sint Maarten",
         "color": "#E1FF80"
     },
-    "Syria": {
+    "217": {
         "name": "Syria",
         "color": "#DDFF80"
     },
-    "Swaziland": {
+    "218": {
         "name": "Swaziland",
         "color": "#D9FF80"
     },
-    "Tristan da Cunha": {
+    "219": {
         "name": "Tristan da Cunha",
         "color": "#D4FF80"
     },
-    "Turks & Caicos Islands": {
+    "220": {
         "name": "Turks & Caicos Islands",
         "color": "#D0FF80"
     },
-    "Chad": {
+    "221": {
         "name": "Chad",
         "color": "#CCFF80"
     },
-    "French Southern Territories": {
+    "222": {
         "name": "French Southern Territories",
         "color": "#C8FF80"
     },
-    "Togo": {
+    "223": {
         "name": "Togo",
         "color": "#C4FF80"
     },
-    "Thailand": {
+    "224": {
         "name": "Thailand",
         "color": "#BFFF80"
     },
-    "Tajikistan": {
+    "225": {
         "name": "Tajikistan",
         "color": "#BBFF80"
     },
-    "Tokelau": {
+    "226": {
         "name": "Tokelau",
         "color": "#B7FF80"
     },
-    "Timor-Leste": {
+    "227": {
         "name": "Timor-Leste",
         "color": "#B3FF80"
     },
-    "Turkmenistan": {
+    "228": {
         "name": "Turkmenistan",
         "color": "#AEFF80"
     },
-    "Tunisia": {
+    "229": {
         "name": "Tunisia",
         "color": "#AAFF80"
     },
-    "Tonga": {
+    "230": {
         "name": "Tonga",
         "color": "#A6FF80"
     },
-    "Turkey": {
+    "231": {
         "name": "Turkey",
         "color": "#A1FF80"
     },
-    "Trinidad & Tobago": {
+    "232": {
         "name": "Trinidad & Tobago",
         "color": "#9DFF80"
     },
-    "Tuvalu": {
+    "233": {
         "name": "Tuvalu",
         "color": "#99FF80"
     },
-    "Taiwan": {
+    "234": {
         "name": "Taiwan",
         "color": "#95FF80"
     },
-    "Tanzania": {
+    "235": {
         "name": "Tanzania",
         "color": "#91FF80"
     },
-    "Ukraine": {
+    "236": {
         "name": "Ukraine",
         "color": "#8CFF80"
     },
-    "Uganda": {
+    "237": {
         "name": "Uganda",
         "color": "#88FF80"
     },
-    "U.S. Outlying Islands": {
+    "238": {
         "name": "U.S. Outlying Islands",
         "color": "#84FF80"
     },
-    "United Nations": {
+    "239": {
         "name": "United Nations",
         "color": "#80FF80"
     },
-    "United States": {
+    "240": {
         "name": "United States",
         "color": "#80FF84"
     },
-    "Uruguay": {
+    "241": {
         "name": "Uruguay",
         "color": "#80FF88"
     },
-    "Uzbekistan": {
+    "242": {
         "name": "Uzbekistan",
         "color": "#80FF8C"
     },
-    "Vatican City": {
+    "243": {
         "name": "Vatican City",
         "color": "#80FF91"
     },
-    "St. Vincent & Grenadines": {
+    "244": {
         "name": "St. Vincent & Grenadines",
         "color": "#80FF95"
     },
-    "Venezuela": {
+    "245": {
         "name": "Venezuela",
         "color": "#80FF99"
     },
-    "British Virgin Islands": {
+    "246": {
         "name": "British Virgin Islands",
         "color": "#80FF9D"
     },
-    "U.S. Virgin Islands": {
+    "247": {
         "name": "U.S. Virgin Islands",
         "color": "#80FFA2"
     },
-    "Vietnam": {
+    "248": {
         "name": "Vietnam",
         "color": "#80FFA6"
     },
-    "Vanuatu": {
+    "249": {
         "name": "Vanuatu",
         "color": "#80FFAA"
     },
-    "Wallis & Futuna": {
+    "250": {
         "name": "Wallis & Futuna",
         "color": "#80FFAE"
     },
-    "Samoa": {
+    "251": {
         "name": "Samoa",
         "color": "#80FFB3"
     },
-    "Kosovo": {
+    "252": {
         "name": "Kosovo",
         "color": "#80FFB7"
     },
-    "Yemen": {
+    "253": {
         "name": "Yemen",
         "color": "#80FFBB"
     },
-    "Mayotte": {
+    "254": {
         "name": "Mayotte",
         "color": "#80FFBF"
     },
-    "South Africa": {
+    "255": {
         "name": "South Africa",
         "color": "#80FFC4"
     },
-    "Zambia": {
+    "256": {
         "name": "Zambia",
         "color": "#80FFC8"
     },
-    "Zimbabwe": {
+    "257": {
         "name": "Zimbabwe",
         "color": "#80FFCC"
     },
-    "None": {
+    "258": {
         "name": "None",
         "color": "#80FFCC"
     }

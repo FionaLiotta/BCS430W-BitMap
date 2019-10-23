@@ -17,7 +17,7 @@ module.exports = [
   async function createConfig(mapType, streamerCountry, channelId)
   {
     let configId = 0;
-    let newConfig = await sql.query(`INSERT INTO dbo.Config VALUES (N'${mapType}', N'${streamerCountry}', ${channelId}); select SCOPE_IDENTITY() as configID`);
+    let newConfig = await sql.query(`INSERT INTO dbo.Config VALUES (${streamerCountry}, N'${mapType}', ${channelId} ); select SCOPE_IDENTITY() as configID`);
     console.log(JSON.stringify(newConfig));
     return newConfig.recordset[0].configID;
   }
@@ -36,14 +36,14 @@ module.exports = [
       console.log('JWT was OK.');
 
       // Check if the channelId exists in the master table yet.
-      let findChannel = await sql.query(`SELECT ConfigID FROM dbo.masterList WHERE ChannelID = ${channelId}`);
+      let findChannel = await sql.query(`SELECT Config_ID FROM dbo.masterList WHERE Channel_ID = ${channelId}`);
       console.log(JSON.stringify(findChannel));
       // If it doesn't, add it with a default config.
       if(findChannel.rowsAffected[0] === 0)
       {
         console.log('Channel not found. Add it with default config.');
-        configId = await createConfig('Globe', 'None', channelId);
-        let newChannel = await sql.query(`INSERT INTO masterList VALUES (${channelId}, ${configId})`);
+        configId = await createConfig('Globe', 258, channelId);
+        let newChannel = await sql.query(`INSERT INTO MasterList VALUES (${channelId}, ${configId})`);
         console.log(JSON.stringify(newChannel));
       }
       // If it does, use its current configId
@@ -52,7 +52,7 @@ module.exports = [
         configId = findChannel.recordset[0].ConfigID;
       }
       // Grab the current config and send it back.
-      let currentConfig = await sql.query(`SELECT * FROM dbo.Config WHERE ConfigID = ${configId}`);
+      let currentConfig = await sql.query(`SELECT * FROM dbo.Config WHERE Config_id = ${configId}`);
       return h.response({status: 'JWT ok!', config: currentConfig.recordset[0]});
     }
     else

@@ -1,6 +1,7 @@
 var token = "";
 var tuid = "";
 var ebs = "";
+import countryColor from './countryColor.mjs';
 
 // because who wants to type this every time?
 var twitch = window.Twitch.ext;
@@ -62,8 +63,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
     // listen for incoming broadcast message from our EBS
     twitch.listen('broadcast', function (target, contentType, payload) {
         twitch.rig.log('Received broadcast: ' + payload);
+        const jsonPayload = JSON.parse(payload);
+        twitch.rig.log('color should be: ' + countryColor[135]);
         debugOutput.innerHTML = payload;
+        //debugOutput.setAttribute("style", `background-color: ${countryColor[135].color}`)
+
     });
+    
 });
 
 

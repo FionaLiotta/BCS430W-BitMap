@@ -12,7 +12,7 @@ let html = '';
 for (const index in countryColor)
 {
     const {color, name} = countryColor[index]; 
-    html += `<option value="${name}">${index} : ${name}</option>`
+    html += `<option value="${index}">${index} : ${name}</option>`
 }
 
 countrySelect.innerHTML = html;
