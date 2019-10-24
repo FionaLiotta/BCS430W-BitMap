@@ -43,8 +43,15 @@ module.exports = [
       {
         console.log('Channel not found. Add it with default config.');
         configId = await createConfig('Globe', 258, channelId);
-        let newChannel = await sql.query(`INSERT INTO MasterList VALUES (${channelId}, ${configId})`, (err) => {console.log(err)});
-        console.log(JSON.stringify(newChannel));
+        try {
+          console.log(`INSERT INTO dbo.MasterList VALUES (${channelId}, ${configId})`);
+          let newChannel = await sql.query(`INSERT INTO dbo.MasterList VALUES (${channelId}, ${configId})`);
+          console.log(JSON.stringify(newChannel));
+        }
+        catch (err) {
+          console.log('SQL error: ' + err);
+        }
+
       }
       // If it does, use its current configId
       else

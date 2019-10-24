@@ -67,6 +67,7 @@ const server = new Hapi.Server(serverOptions);
     console.log ('Error connecting to SQL server: \n' + err);
   }
 
+
   const routes = require('./routes/');
   server.route(routes);
 
