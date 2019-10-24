@@ -47,9 +47,20 @@ const server = new Hapi.Server(serverOptions);
   // ***
   // SQL
   // ***
+  const sqlConfig ={
+    user: process.env.SQLUSERNAME,
+    password: process.env.SQLPASSWORD,
+    server: process.env.SQLSERVER, // You can use 'localhost\\instance' to connect to named instance
+    database: process.env.SQLDB,
+ 
+    options: {
+        encrypt: true // Use this if you're on Windows Azure
+    }
+  }
   try
   {
-    await sql.connect('mssql://' + process.env.SQLUSERNAME + ':' + process.env.SQLPASSWORD + '@' + process.env.SQLSERVER + '/' + process.env.SQLDB);
+    //await sql.connect('mssql://' + process.env.SQLUSERNAME + ':' + process.env.SQLPASSWORD + '@' + process.env.SQLSERVER + '/' + process.env.SQLDB);
+    await sql.connect(sqlConfig);
   }
   catch (err)
   {

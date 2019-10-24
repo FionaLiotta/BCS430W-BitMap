@@ -64,9 +64,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     twitch.listen('broadcast', function (target, contentType, payload) {
         twitch.rig.log('Received broadcast: ' + payload);
         const jsonPayload = JSON.parse(payload);
-        twitch.rig.log('color should be: ' + countryColor[135]);
+        console.log(countryColor[jsonPayload.country_id].color);
         debugOutput.innerHTML = payload;
-        //debugOutput.setAttribute("style", `background-color: ${countryColor[135].color}`)
+        debugOutput.setAttribute("style", `background-color: ${countryColor[jsonPayload.country_id].color}`)
 
     });
     
