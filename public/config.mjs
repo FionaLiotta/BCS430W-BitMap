@@ -29,9 +29,15 @@ async function fetchConfig()
         method: 'GET',
         headers: {'Authorization': 'Bearer ' + token},
     }
-    let response = await fetch('https://localhost:8081/channel/config' , configRequest);
-    myConfig = await response.json();
-    console.log(JSON.stringify(myConfig));
+    try{
+        let response = await fetch('https://localhost:8081/channel/config' , configRequest);
+        myConfig = await response.json();
+    }
+    catch (err)
+    {
+        twitch.rig.log('Fetch failed! ' + err);
+    }
+    
     configOutput.innerHTML = JSON.stringify(myConfig);
     return myConfig.config;
 }
