@@ -35,7 +35,9 @@ async function fetchConfig()
     }
     catch (err)
     {
-        twitch.rig.log('Fetch failed! ' + err);
+        twitch.rig.log('Fetch failed! ' + err.statusText);
+	
+		twitch.rig.log('Fetch failed! ' + err);
     }
     
     configOutput.innerHTML = JSON.stringify(myConfig);
