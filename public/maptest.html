@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Viewer Page</title>
+    <link rel="stylesheet" type="text/css" href="frontend.css">
+</head>
+<body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+  <p id="demo"></p>
+<script>
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function () {
+  if (this.readyState == 4 && this.status == 200) {
+    myFunction(this);
+  }
+};
+xhttp.open("GET", "countryNames.xml", true);
+xhttp.send();
+
+function myFunction(xml) {
+  var xmlDoc = xml.responseXML;
+  var cityNames = Array.from(xmlDoc.getElementsByTagName("country"));
+var i = 0;
+
+do {
+    console.log(cityNames[i].innerHTML);
+    i++;
+}
+while (i < cityNames.length);
+
+}
+</script>
+myFunction(10, 2);
+</body>
+
+</html>

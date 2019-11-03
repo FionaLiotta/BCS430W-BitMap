@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Viewer Page</title>
+    <link rel="stylesheet"
+    href="styles.css"
+</head>
+<body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+
+    <div id="app" class="full-height"></div>
+    <script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="viewer.js" type="text/javascript"></script>
+    <span class="open">&#9776;</span>
+    <p></p>
+    <div class="overlay">
+  <nav>
+		<menu>
+			<menuitem id="demo1">
+				<a>Menu</a>
+				<menu>
+					<menuitem><a>About Us</a></menuitem>
+               <menuitem>
+                  <a>Map Menu</a>
+                  <menu>
+                     <menuitem><a href="googleMap.html">Map Display</a></menuitem>
+                     <menuitem><a href="/chaddy-map/index.html">Map Rotation</a></menuitem>
+                     <menuitem><a>Test 3</a></menuitem>
+                     <menuitem><a>Test 4</a></menuitem>
+                  </menu>
+               </menuitem>
+					<menuitem><a>Help Guide</a></menuitem>
+					<menuitem id="demo2">
+						<a>Even More</a>
+						<menu>
+							<menuitem id="demo3">
+								<a>Deeper</a>
+								<menu>
+									<menuitem><a>deep 1</a></menuitem>
+									<menuitem><a>deep 2</a></menuitem>
+									<menuitem><a>deep 3</a></menuitem>
+								</menu>
+							</menuitem>
+							<menuitem><a>test</a></menuitem>
+						</menu>
+					</menuitem>
+				</menu>
+			</menuitem>
+         <menuitem><a>Place Holder</a></menuitem>
+		</menu>
+	</nav>
+      <span class="close">&times;</span>
+      <ul>
+        <!-- <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contacts</a> -->
+      </ul>
+    </div>
+    <script src="leaderboard.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

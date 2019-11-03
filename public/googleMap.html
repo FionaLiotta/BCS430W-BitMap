@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css"></link>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      google.charts.load('current', {
+        'packages':['geochart'],
+        // Note: you will need to get a mapsApiKey for your project.
+        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+      });
+      google.charts.setOnLoadCallback(drawRegionsMap);
+
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          myFunction(this);
+        }
+      };
+      xhttp.open("GET", "countryNames.xml", true);
+      xhttp.send();
+
+      function myFunction(xml) {
+        var xmlDoc = xml.responseXML;
+        var cityNames = Array.from(xmlDoc.getElementsByTagName("country"));
+        var i = 0;
+
+        do {
+        console.log(cityNames[i].innerHTML);
+          i++;
+        }
+        while (i < cityNames.length);
+      }
+
+      function drawRegionsMap() {
+        var data = google.visualization.arrayToDataTable([
+          ['Country', 'Popularity'],
+          ['Germany', 200],
+          ['United States', 300],
+          ['Brazil', 400],
+          ['Canada', 500],
+          ['France', 600],
+          ['RU', 700],
+          ['Japan', 800],
+          ['Ascension Island', 1000]
+        ]);
+
+        for (var i = 0; i < data.getNumberOfRows(); i++) {
+          var countryValue = data.getValue(i, 1);
+          data.setValue(i, 1, i);
+          data.setFormattedValue(i, 1, countryValue);
+        }
+
+        var options = {
+          colorAxis: {
+            colors: ['red', 'green', 'orange', 'blue', 'yellow', 'pink', 'grey', 'black'],
+            values: [0, 1, 2, 3, 4, 5, 6, 7]
+          },
+          legend: 'none'
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+        chart.draw(data, options);
+      }
+    </script>
+
+  </head>
+  <body>
+    <div id="regions_div" style="width: 1024px; height: 576 px;"></div>
+    <span><a class="close" href="video_overlay.html">&times;</a></span>
+    <script src="script.js"></script>
+  </body>
+</html>
