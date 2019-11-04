@@ -9,3 +9,29 @@ form
     flex-direction: column;
     margin: 2em;
 }
+
+
+#globe {
+  cursor: move;
+}
+
+#current {
+  position: absolute;
+  color: red;
+  font-family: sans-serif;
+  margin-left: 4%;
+  margin-top: 4%;
+}
+
+
+#tooltip {
+  text-align: left;
+  padding: 30px;
+  background-color: white;
+  border: 1px solid black;
+  width: auto;
+  opacity: 0;
+  color: black;
+  position: absolute;
+}
+
