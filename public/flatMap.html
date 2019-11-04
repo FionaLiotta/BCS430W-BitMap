@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flat Map </title>
+    <link rel="stylesheet" type="text/css" href="frontend.css">
+</head>
+<body>
+    <!-- If you use any external libraries, such as jQuery, you must include
+      them as part of your extension.  Twitch does not allow extensions to link
+      to external libraries. -->
+      <script src="js/jquery-3.4.1.min.js"></script>    
+      <script src="js/d3-4.2.2.min.js"></script>
+      <script src="js/d3-geo.v1.min.js"></script>
+      <script src="js/topojson.v2.min.js"></script>
+      <script src="js/versor.js"></script>
+    
+    <span><a class="close" href="video_overlay.html">&times;</a></span>
+    <!-- Show selected country -->
+    <h2 id="current"></h2>
+    
+    <!--Render flat Map -->
+    <canvas id="flat"></canvas>
+
+    <!-- Tooltip showing country information -->
+    <div id="tooltip">
+      <span id="Name"></span><br>
+      <span id="Name2"></span>
+    </div>
+        <!-- Our  Libraries -->
+        <script src="js/flatMap.js"></script>
+</body>
+</html>
