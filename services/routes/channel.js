@@ -15,13 +15,13 @@ module.exports = [
   {
     method: 'GET',
     path: '/channel/countryDonations',
-    handler: channelCountryDonationsHandler
+    handler: channelCountryTotalDonationsHandler
   },
   {
     method: 'GET',
     path: '/channel/totalDonations',
-    handler: channelTotalDonations
-  }
+    handler: channelTotalDonationsHandler
+  },
 ]
 
 async function createConfig(mapType, streamerCountry, channelId)
@@ -81,19 +81,32 @@ async function channelConfigHandler(req, h)
 
 async function channelConfigWriteHandler(req, h)
 {
-  let configId;
-  // decode JWT so we can get channel/user_id etc.
   let decodedjwt = twitch.verifyAndDecode(req.headers.authorization);
   let {channel_id: channelId} = decodedjwt;
+  const payload = JSON.parse(req.payload);
+  const {streamerCountry, mapType, configId} = payload;
   console.log('Got config write request! ' + channelId);
-  let writeConfig = sql.query(`ALTER TABLE dbo.Config {
-    ALTER COLUMN
-  } `)
+  let writeConfig = await sql.query(`UPDATE dbo.Config
+    SET StreamerCountry = ${streamerCountry}, mapType = N'${mapType}'
+    WHERE Config_id = ${configId}
+    ;`);
+  if(writeConfig.rowsAffected === 1)
+  {
+    console.log('Wrote config.');
+    // Grab the current config and send it back.
+    let currentConfig = await sql.query(`SELECT * FROM dbo.Config WHERE Config_id = ${configId}`);
+    return h.response({status: 'Config updated.', config: currentConfig.recordset[0]});
+  }
+  else
+  {
+    console.log('Failed to write config.');
+    return h.response({status: 'Failed to update config.'});
+
+  }
 }
 
-async function channelCountryDonationsHandler(req, h)
+async function channelCountryTotalDonationsHandler(req, h)
 {
-  // decode JWT so we can get channel/user_id etc.
   let decodedjwt = twitch.verifyAndDecode(req.headers.authorization);
   let {channel_id: channelId} = decodedjwt;
   let countryQuery = await sql.query(`SELECT country_id, sum(bits_used) AS country_total FROM TwitchAPI.dbo.Donations WHERE channel_id = ${channelId} GROUP BY [country_id] ORDER BY country_total DESC;
@@ -101,9 +114,8 @@ async function channelCountryDonationsHandler(req, h)
   return h.response(countryQuery.recordset);
 }
 
-async function channelTotalDonations(req, h)
+async function channelTotalDonationsHandler(req, h)
 {
-  // decode JWT so we can get channel/user_id etc.
   let decodedjwt = twitch.verifyAndDecode(req.headers.authorization);
   let {channel_id: channelId} = decodedjwt;
   let totalQuery = await sql.query(`SELECT sum(bits_used) AS channel_sum FROM TwitchAPI.dbo.Donations WHERE channel_id = ${channelId}
