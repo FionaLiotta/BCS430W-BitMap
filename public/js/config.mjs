@@ -67,7 +67,7 @@ testCountryQueryButton.addEventListener('click', async (e) => {
         method: 'GET',
         headers: {'Authorization': 'Bearer ' + token},
     }
-    let response = await fetch('https://localhost:8081/channel/countryDonations' , queryRequest);
+    let response = await fetch('https://localhost:8081/channel/totalDonations' , queryRequest);
     const resJSON = await response.json();
     debugOutput.innerHTML = JSON.stringify(resJSON);
 

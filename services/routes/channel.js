@@ -16,6 +16,11 @@ module.exports = [
     method: 'GET',
     path: '/channel/countryDonations',
     handler: channelCountryDonationsHandler
+  },
+  {
+    method: 'GET',
+    path: '/channel/totalDonations',
+    handler: channelTotalDonations
   }
 ]
 
@@ -88,10 +93,21 @@ async function channelConfigWriteHandler(req, h)
 
 async function channelCountryDonationsHandler(req, h)
 {
-    // decode JWT so we can get channel/user_id etc.
+  // decode JWT so we can get channel/user_id etc.
   let decodedjwt = twitch.verifyAndDecode(req.headers.authorization);
   let {channel_id: channelId} = decodedjwt;
   let countryQuery = await sql.query(`SELECT country_id, sum(bits_used) AS country_total FROM TwitchAPI.dbo.Donations WHERE channel_id = ${channelId} GROUP BY [country_id] ORDER BY country_total DESC;
   `);
   return h.response(countryQuery.recordset);
+}
+
+async function channelTotalDonations(req, h)
+{
+  // decode JWT so we can get channel/user_id etc.
+  let decodedjwt = twitch.verifyAndDecode(req.headers.authorization);
+  let {channel_id: channelId} = decodedjwt;
+  let totalQuery = await sql.query(`SELECT sum(bits_used) AS channel_sum FROM TwitchAPI.dbo.Donations WHERE channel_id = ${channelId}
+  `);
+  return h.response(totalQuery.recordset);
+
 }
