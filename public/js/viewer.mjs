@@ -67,7 +67,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
         console.log(countryColor[jsonPayload.country_id].color);
         debugOutput.innerHTML = payload;
         debugOutput.setAttribute("style", `background-color: ${countryColor[jsonPayload.country_id].color}`)
-
+        debugOutput.classList.add('showPopup');
+        setTimeout(() => {
+        debugOutput.classList.remove('showPopup');
+        }, 5000);
     });
     
 });

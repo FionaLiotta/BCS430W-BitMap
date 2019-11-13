@@ -35,3 +35,12 @@ form
   position: absolute;
 }
 
+.popup
+{
+  opacity: 0;
+  transition: opacity .25s ease-in-out;
+}
+.showPopup
+{
+  opacity: 1;
+}
