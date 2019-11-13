@@ -79,6 +79,29 @@
         "width": 1024,
         "height": 576
       }
+    },
+    {
+      "id": "4",
+      "label": "",
+      "channelId": "265737932",
+      "configurationAnchor": "video_overlay",
+      "displayChannelName": "internetfriend",
+      "type": "config",
+      "features": {
+        "isBitsEnabled": false,
+        "isChatEnabled": false,
+        "isSubscriptionStatusAvailable": false
+      },
+      "linked": true,
+      "linkedUserId": "265737932",
+      "mode": "config",
+      "isPopout": false,
+      "role": "Broadcaster",
+      "orientation": "Portrait",
+      "frameSize": {
+        "width": 1280,
+        "height": 720
+      }
     }
   ],
   "manifest": {

@@ -2,7 +2,9 @@ import countryColor from './countryColor.mjs';
 const twitch = window.Twitch.ext;
 const countrySelect = document.querySelector("#countrySelect");
 const mapType = document.querySelector("#mapType");
+const debugOutput = document.querySelector("#debugOutput");
 const configOutput = document.querySelector("#configOutput");
+const testCountryQueryButton = document.querySelector('#testCountryQuery');
 let token = '';
 let tuid = '';
 
@@ -59,4 +61,14 @@ countrySelect.addEventListener('change', (e) => {
     configOutput.setAttribute("style", `background-color: ${countryColor[countrySelect.value].color}`)
 });
 
+testCountryQueryButton.addEventListener('click', async (e) => {
+    const queryRequest = 
+    {
+        method: 'GET',
+        headers: {'Authorization': 'Bearer ' + token},
+    }
+    let response = await fetch('https://localhost:8081/channel/countryDonations' , queryRequest);
+    const resJSON = await response.json();
+    debugOutput.innerHTML = JSON.stringify(resJSON);
 
+});
