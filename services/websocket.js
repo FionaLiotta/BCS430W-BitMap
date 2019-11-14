@@ -94,8 +94,19 @@ const url = 'wss://melon-crop.glitch.me/';
 const connection = new WebSocket(url);
 console.log("Opening connection to mock data server...");
 
+// Keepalive function for the websocket.
+function keepalive()
+{
+  if(connection.readyState == connection.OPEN)
+  {
+    connection.send('');
+  }
+  setTimeout(keepalive, 30000);
+}
+
 connection.onopen = () => {
     console.log("Opened connection to mock data server.");
+    keepalive();
 }
 
 connection.onmessage = async e => {
