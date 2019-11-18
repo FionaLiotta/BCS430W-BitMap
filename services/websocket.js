@@ -99,6 +99,7 @@ function keepalive()
 {
   if(connection.readyState == connection.OPEN)
   {
+    console.log('Sending keepalive...');
     connection.send('');
   }
   setTimeout(keepalive, 30000);
