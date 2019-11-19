@@ -2,7 +2,12 @@
 <html>
 <head>
     <title>Globe Map</title>
-    <link rel="stylesheet" type="text/css" href="frontend.css">
+    <style>th, td {
+        padding: 15px;
+        text-align: left;
+        background-color: white;
+      }
+      </style>
 </head>
 <body>
     <!-- If you use any external libraries, such as jQuery, you must include
@@ -35,6 +40,7 @@ twitch.rig.log('LOADED');
         <table style="width:100%" id="donationTable">
             <thead>
                 <tr>
+                    <th>ChannelId</th>
                     <th>UserId</th>
                     <th>Country</th>
                     <th>Bits</th>

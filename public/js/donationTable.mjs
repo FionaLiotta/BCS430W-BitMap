@@ -25,6 +25,7 @@ const $tableBody = $('#donationTableBody');
 for(let i = 0; i < resJSON.length; i++) {
     $tableBody.append(`
         <tr>
+            <td>${resJSON[i].channel_id}</td>
             <td>${resJSON[i].user_id}</td>
             <td>${resJSON[i].CountryName}</td>
             <td>${resJSON[i].bits_used }</td>
