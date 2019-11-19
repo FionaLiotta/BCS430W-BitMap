@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/b5603450-b4a8-4553-a2e7-38de9f8af072/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/twitchMapServer",
+    "appService.deploySubpath": ""
+}
