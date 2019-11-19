@@ -33,6 +33,7 @@ svg.append("path")
 .attr("d", path);
 
 var countryTooltip = d3.select("body").append("div").attr("class", "countryTooltip"),
+bitsTooltip = d3.select("body").append("div").attr("class", "bitsTooltip"),
 countryList = d3.select("body").append("select").attr("name", "countries");
 
 
@@ -125,45 +126,88 @@ function ready(error, world, countryData) {
         const jsonPayload = JSON.parse(payload);
         console.log(countryColor[jsonPayload.country_id].name);
         
-        let fadeTimer;
+
         let rotate = projection.rotate();
         let focusedCountry = country(countries, countryColor[jsonPayload.country_id].name);
         console.log(focusedCountry);
         p = d3.geo.centroid(focusedCountry);
         console.log("p: ", p);
         if(focusedCountry){
+            // Show country popup
+            countryTooltip.text(`${focusedCountry.properties.name}`)
+            .style("left", (15) + "px")
+            .style("top", (15) + "px")
+            .style("display", "block")
+            .style("opacity", 1);
+
+            bitsTooltip.text(`${jsonPayload.bits_used} Bits`)
+            .style("left", (15) + "px")
+            .style("bottom", (15) + "px")
+            .style("display", "block")
+            .style("opacity", 1);
+
+            // Reset fadeout
+            clearTimeout(this.fadeTimer);
+
+            // Show map and rotate to show highlighted country.
             body.classList.add('opaque');
             (function transition() 
+            {
+            console.log("Transition start...");
+            d3.transition()
+            .duration(2500)
+            .tween("rotate", function() {
+                var r = d3.interpolate(projection.rotate(), [-p[0], -p[1]]);
+                return function(t) {
+                projection.rotate(r(t));
+                svg.selectAll("path").attr("d", path)
+                .classed("focused", function(d, i) {
+                    if(d.type == "Sphere") {return false;}
+                    if(d.properties.name == focusedCountry.properties.name)
+                    {
+                        return (focused = d)
+                    }
+                    else
+                    {
+                        return false; 
+                    }
+                });
+                };
+            })
+            
+            })();
+            this.fadeTimer = setTimeout(() => {
+                body.classList.remove('opaque');
+            }, 5000);
+        }
+        else
         {
-        console.log("Transition start...");
-        d3.transition()
-        .duration(2500)
-        .tween("rotate", function() {
-            var r = d3.interpolate(projection.rotate(), [-p[0], -p[1]]);
-            return function(t) {
-            projection.rotate(r(t));
-            svg.selectAll("path").attr("d", path)
-            .classed("focused", function(d, i) {
-                if(d.type == "Sphere") {return false;}
-                if(d.properties.name == focusedCountry.properties.name)
-                {
-                    return (focused = d)
-                }
-                else
-                {
-                    return false; 
-                }
-            });
-            };
-        })
-        })();
+             // Show country popup
+             countryTooltip.text(`Missing map data: ${countryColor[jsonPayload.country_id].name}`)
+             .style("left", (15) + "px")
+             .style("top", (15) + "px")
+             .style("display", "block")
+             .style("opacity", 1);
+
+             bitsTooltip.text(`${jsonPayload.bits_used} Bits`)
+            .style("left", (15) + "px")
+            .style("bottom", (15) + "px")
+            .style("display", "block")
+            .style("opacity", 1);
+             
+            // Reset fadeout
+            clearTimeout(this.fadeTimer);
+
+            // Show map and rotate to show highlighted country.
+            body.classList.add('opaque');
+
+            this.fadeTimer = setTimeout(() => {
+                body.classList.remove('opaque');
+            }, 5000);
         }
         
         svg.selectAll(".focused").classed("focused", focused = false);
 
-        fadeTimer = setTimeout(() => {
-            body.classList.remove('opaque');
-        }, 5000);
 
     });
 
