@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Globe Map</title>
+    <link rel="stylesheet" type="text/css" href="frontend.css">
+</head>
+<body>
+    <!-- If you use any external libraries, such as jQuery, you must include
+      them as part of your extension.  Twitch does not allow extensions to link
+      to external libraries. -->
+      <script src="js/jquery-3.4.1.min.js"></script>
+      <script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
+    <!-- Our  Libraries -->
+    <script src="js/donationTable.mjs" type="module"></script>
+    <script>
+        const twitch = window.Twitch.ext;
+
+twitch.rig.log('LOADED');
+
+    </script>
+    
+    <span><a class="close" href="video_overlay.html">&times;</a></span>
+    <style>
+    th, td {
+  padding: 5px;
+  text-align: left;    
+}
+#debugOutput > p{
+    color: #fff;
+}
+    </style>
+      <div id="debugOutput">
+        <p>Waiting for input...</p>
+      </div>
+        <table style="width:100%" id="donationTable">
+            <thead>
+                <tr>
+                    <th>UserId</th>
+                    <th>Country</th>
+                    <th>Bits</th>
+                  </tr>
+            </thead>
+            <tbody id="donationTableBody"></tbody>
+          </table>
+
+</body>
+</html>

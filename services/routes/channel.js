@@ -22,6 +22,11 @@ module.exports = [
     path: '/channel/totalDonations',
     handler: channelTotalDonationsHandler
   },
+  {
+    method: 'GET',
+    path: '/channel/userCountryDonations',
+    handler: userCountryDonationsHandler
+  }
 ]
 
 async function createConfig(mapType, streamerCountry, channelId)
@@ -111,6 +116,21 @@ async function channelCountryTotalDonationsHandler(req, h)
   let {channel_id: channelId} = decodedjwt;
   let countryQuery = await sql.query(`SELECT country_id, sum(bits_used) AS country_total FROM TwitchAPI.dbo.Donations WHERE channel_id = ${channelId} GROUP BY [country_id] ORDER BY country_total DESC;
   `);
+  return h.response(countryQuery.recordset);
+}
+
+async function userCountryDonationsHandler(req, h)
+{
+  
+  let decodedjwt = twitch.verifyAndDecode(req.headers.authorization);
+  let {channel_id: channelId} = decodedjwt;
+
+  let countryQuery = await sql.query(`
+    SELECT dbo.Country.CountryName, dbo.Donations.user_id, dbo.Donations.bits_used
+    FROM dbo.Country
+    INNER JOIN dbo.Donations ON dbo.Country.Country_id=dbo.Donations.country_id
+    WHERE dbo.Donations.channel_id = ${channelId}`);
+
   return h.response(countryQuery.recordset);
 }
 
