@@ -102,7 +102,7 @@ function keepalive()
     console.log('Sending keepalive...');
     connection.send('');
   }
-  setTimeout(keepalive, 30000);
+  setTimeout(keepalive, 20000);
 }
 
 connection.onopen = () => {
