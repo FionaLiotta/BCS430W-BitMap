@@ -100,25 +100,45 @@ function keepalive()
   if(connection.readyState == connection.OPEN)
   {
     console.log('Sending keepalive...');
-    connection.send('');
+    connection.ping('ping');
+  } 
+  else
+  {
+    console.log('connection.readyState not OPEN', connection.readyState);
   }
-  setTimeout(keepalive, 20000);
+  setTimeout(keepalive, 15000);
 }
+
+connection.on('pong', () => {
+  console.log('Heard pong.');
+});
+
+connection.on('ping', (e) =>{
+  console.log('Heard ping.');
+  connection.pong();
+})
 
 connection.onopen = () => {
     console.log("Opened connection to mock data server.");
-    keepalive();
+    //keepalive();
 }
 
 connection.onmessage = async e => {
     console.log("Heard mock data.");
     //console.log(e);
-
     // Grab the body of the message from the event
     const {data: eData} = e;
+    //console.log(eData);
+    if(eData === 'pong')
+    {
+      console.log('Heard pong.');
+      return;
+    }
     // Extract the topic from the message to see what kind of event it was
     const {data: {topic} = {topic: 'No topic'}} = JSON.parse(eData);
     console.log(topic);
+
+
 
     // Handle donations
     if(topic && topic.includes("channel-bits-events-v2"))

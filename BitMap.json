@@ -8,6 +8,12 @@
       "isEphemeral": false,
       "isOrigin": true,
       "value": "https://localhost:8081"
+    },
+    {
+      "isAllowed": true,
+      "isEphemeral": false,
+      "isOrigin": true,
+      "value": "wss://pubsub-edge.twitch.tv"
     }
   ],
   "extensionViews": [
