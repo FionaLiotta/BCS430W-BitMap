@@ -19,7 +19,7 @@ function createRequest(type, method, data) {
         beforeSend: function(request) {
             request.setRequestHeader('Authorization', 'Bearer ' + token);
         },
-        url: location.protocol + '//localhost:8081/user/' + method,
+        url: location.protocol + '//twitchmapebs.azurewebsites.net/user/' + method,
         data: data,
         success: updateBlock,
         error: logError

@@ -34,7 +34,7 @@ async function fetchConfig()
         headers: {'Authorization': 'Bearer ' + token},
     }
     try{
-        let response = await fetch('https://localhost:8081/channel/config' , configRequest);
+        let response = await fetch('https://twitchmapebs.azurewebsites.net/channel/config' , configRequest);
         myConfig = await response.json();
     }
     catch (err)
@@ -70,7 +70,7 @@ testCountryQueryButton.addEventListener('click', async (e) => {
         method: 'GET',
         headers: {'Authorization': 'Bearer ' + token},
     }
-    let response = await fetch('https://localhost:8081/channel/totalDonations' , queryRequest);
+    let response = await fetch('https://twitchmapebs.azurewebsites.net/channel/totalDonations' , queryRequest);
     const resJSON = await response.json();
     debugOutput.innerHTML = JSON.stringify(resJSON);
 
@@ -87,7 +87,7 @@ configForm.addEventListener('submit', async (e) =>{
         headers: {'Authorization': 'Bearer ' + token},
         body: JSON.stringify(payload)
     }
-    let response = await fetch('https://localhost:8081/channel/config' , queryRequest);
+    let response = await fetch('https://twitchmapebs.azurewebsites.net/channel/config' , queryRequest);
     const resJSON = await response.json();
     debugOutput.innerHTML = JSON.stringify(resJSON);
 });
