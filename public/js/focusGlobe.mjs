@@ -1,6 +1,33 @@
 
 import countryColor from './countryColor.mjs';
 
+// Fetch Globe/Flat preference
+async function fetchConfig() 
+{
+    twitch.rig.log('Fetching config...');
+    const configRequest = 
+    {
+        method: 'GET',
+        headers: {'Authorization': 'Bearer ' + token},
+    }
+    try{
+        let response = await fetch('https://twitchmapebs.azurewebsites.net/channel/config' , configRequest);
+        myConfig = await response.json();
+    }
+    catch (err)
+    {
+        twitch.rig.log('Fetch failed! ' + err.statusText);
+	
+		twitch.rig.log('Fetch failed! ' + err);
+    }
+    
+    configOutput.innerHTML = JSON.stringify(myConfig);
+    return myConfig.config;
+}
+
+const viewConfig = fetchConfig().MapType;
+console.log("MapType: ", viewConfig);
+
 var width = 225,
 height = 225,
 sens = 0.25,
