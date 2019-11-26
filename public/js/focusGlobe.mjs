@@ -1,10 +1,24 @@
 
 import countryColor from './countryColor.mjs';
+const twitch = window.Twitch.ext;
+
+let token = '';
+let tuid = '';
+let MapType = 'Globe';
+
+//D3 vars
+let projection;
+var width = 225,
+height = 225,
+sens = 0.25,
+focused,
+option,
+p;
 
 // Fetch Globe/Flat preference
 async function fetchConfig() 
 {
-    twitch.rig.log('Fetching config...');
+    let myConfig = '';
     const configRequest = 
     {
         method: 'GET',
@@ -16,33 +30,40 @@ async function fetchConfig()
     }
     catch (err)
     {
-        twitch.rig.log('Fetch failed! ' + err.statusText);
+        console.log('Fetch failed! ' + err.statusText);
 	
-		twitch.rig.log('Fetch failed! ' + err);
     }
-    
-    configOutput.innerHTML = JSON.stringify(myConfig);
     return myConfig.config;
 }
 
-const viewConfig = fetchConfig().MapType;
-console.log("MapType: ", viewConfig);
+// Get and save auth tokens
+twitch.onAuthorized(async function(auth) {
+    // save our credentials
+    token = auth.token;
+    tuid = auth.userId;
+    let config = await fetchConfig();
+    MapType = config.MapType;
+    //Setting projection
+    console.log('MapType: ', MapType);
+    if(MapType === 'Globe')
+    {
+        projection = d3.geo.orthographic()
+        .scale(100)
+        .rotate([0, 0])
+        .translate([width / 2, height / 2])
+        .clipAngle(90);
+    }
+    else
+    {
+        projection = d3.geo.mercator()
+        .scale(100)
+        .rotate([0, 0])
+        .translate([width / 2, height / 2])
+        .clipAngle(90);
+    }
 
-var width = 225,
-height = 225,
-sens = 0.25,
-focused,
-option,
-p;
 
-//Setting projection
-
-var projection = d3.geo.orthographic()
-.scale(100)
-.rotate([0, 0])
-.translate([width / 2, height / 2])
-.clipAngle(90);
-
+console.log('projection:', projection);
 var path = d3.geo.path()
 .projection(projection);
 
@@ -92,53 +113,10 @@ function ready(error, world, countryData) {
     .attr("class", "land")
     .attr("d", path)
 
-    //Drag event
-/*
-    .call(d3.behavior.drag()
-    .origin(function() { var r = projection.rotate(); return {x: r[0] / sens, y: -r[1] / sens}; })
-    .on("drag", function() {
-        var rotate = projection.rotate();
-        projection.rotate([d3.event.x * sens, -d3.event.y * sens, rotate[2]]);
-        svg.selectAll("path.land").attr("d", path);
-        svg.selectAll(".focused").classed("focused", focused = false);
-    }))
-
-    //Mouse events
-    
-    .on("mouseover", function(d) {
-    countryTooltip.text(countryById[d.id])
-    .style("left", (d3.event.pageX + 7) + "px")
-    .style("top", (d3.event.pageY - 15) + "px")
-    .style("display", "block")
-    .style("opacity", 1);
-    })
-    .on("mouseout", function(d) {
-    countryTooltip.style("opacity", 0)
-    .style("display", "none");
-    })
-    .on("mousemove", function(d) {
-    countryTooltip.style("left", (d3.event.pageX + 7) + "px")
-    .style("top", (d3.event.pageY - 15) + "px");
-    });
-
-    //Country focus on option select
-
-    d3.select("select").on("change", function() {
-    var rotate = projection.rotate(),
-    focusedCountry = country(countries, this),
-    p = d3.geo.centroid(focusedCountry);
-
-    svg.selectAll(".focused").classed("focused", focused = false);
-
-    //Globe rotating
-
-    
-    });
-*/
     function country(cnt, sel) { 
-    for(var i = 0, l = cnt.length; i < l; i++) {
-        if(cnt[i].properties.name == sel) {return cnt[i];}
-    }
+        for(var i = 0, l = cnt.length; i < l; i++) {
+            if(cnt[i].properties.name == sel) {return cnt[i];}
+        }
     };
 
     
@@ -237,4 +215,5 @@ function ready(error, world, countryData) {
 
 };
 
+});
 

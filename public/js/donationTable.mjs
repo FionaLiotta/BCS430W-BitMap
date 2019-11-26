@@ -20,13 +20,11 @@ twitch.onAuthorized(async function(auth) {
 let response = await fetch('https://twitchmapebs.azurewebsites.net/channel/countryDonations' , queryRequest);
 const resJSON = await response.json();
 twitch.rig.log(resJSON);
-console.log(resJSON);
 // your declaration of the table element:
 const $tableBody = $('#donationTableBody');
 
 
 for(let i = 0; i < resJSON.length; i++) {
-    twitch.rig.log(resJSON[i]);
     $tableBody.append(`
         <tr>
             <td>${countryColor[resJSON[i].country_id].name}</td>
