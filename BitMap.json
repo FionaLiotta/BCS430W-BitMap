@@ -180,7 +180,7 @@
         "aspectRatioX": 100,
         "aspectRatioY": 100,
         "autoscale": false,
-        "scalePixels": 1024,
+        "scalePixels": 0,
         "targetHeight": 5000,
         "size": 0,
         "zoom": false,

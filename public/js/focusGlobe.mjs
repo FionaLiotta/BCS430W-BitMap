@@ -129,9 +129,7 @@ function ready(error, world, countryData) {
 
         let rotate = projection.rotate();
         let focusedCountry = country(countries, countryColor[jsonPayload.country_id].name);
-        console.log(focusedCountry);
         p = d3.geo.centroid(focusedCountry);
-        console.log("p: ", p);
         if(focusedCountry){
             // Show country popup
             countryTooltip.text(`${focusedCountry.properties.name}`)
@@ -153,7 +151,6 @@ function ready(error, world, countryData) {
             body.classList.add('opaque');
             (function transition() 
             {
-            console.log("Transition start...");
             d3.transition()
             .duration(2500)
             .tween("rotate", function() {
