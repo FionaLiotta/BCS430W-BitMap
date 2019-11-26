@@ -2,27 +2,33 @@ const twitch = require('../TwitchCommon.js');
 const sql = require('mssql');
 
 module.exports = [
-{
-    method: 'GET',
-    path: '/channel/config',
-    handler: channelConfigHandler,
-  },
   {
-    method: 'POST',
-    path: '/channel/config',
-    handler: channelConfigWriteHandler
-  },
-  {
-    method: 'GET',
-    path: '/channel/countryDonations',
-    handler: channelCountryTotalDonationsHandler
-  },
-  {
-    method: 'GET',
-    path: '/channel/totalDonations',
-    handler: channelTotalDonationsHandler
-  },
-]
+      method: 'GET',
+      path: '/channel/config',
+      handler: channelConfigHandler,
+    },
+    {
+      method: 'POST',
+      path: '/channel/config',
+      handler: channelConfigWriteHandler
+    },
+    {
+      method: 'GET',
+      path: '/channel/countryDonations',
+      handler: channelCountryTotalDonationsHandler
+    },
+    {
+      method: 'GET',
+      path: '/channel/totalDonations',
+      handler: channelTotalDonationsHandler
+    },
+    {
+      method: 'GET',
+      path: '/channel/userCountryDonations',
+      handler: userCountryDonationsHandler
+    }
+  ]
+  
 
 async function createConfig(mapType, streamerCountry, channelId)
 {
@@ -122,4 +128,19 @@ async function channelTotalDonationsHandler(req, h)
   `);
   return h.response(totalQuery.recordset);
 
+}
+
+async function userCountryDonationsHandler(req, h)
+{
+  
+  let decodedjwt = twitch.verifyAndDecode(req.headers.authorization);
+  let {channel_id: channelId} = decodedjwt;
+
+  let countryQuery = await sql.query(`
+    SELECT dbo.Country.CountryName, dbo.Donations.user_id, dbo.Donations.bits_used , dbo.Donations.channel_id
+    FROM dbo.Country
+    INNER JOIN dbo.Donations ON dbo.Country.Country_id=dbo.Donations.country_id
+    WHERE dbo.Donations.channel_id = ${channelId}`);
+
+  return h.response(countryQuery.recordset);
 }
