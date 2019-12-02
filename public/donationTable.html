@@ -2,11 +2,45 @@
 <html>
 <head>
     <title>Globe Map</title>
-    <style>th, td {
-        padding: 15px;
-        text-align: left;
-        background-color: white;
-      }
+    <style>
+      th, td {
+    padding: 5px;
+    text-align: left;    
+  }
+  #debugOutput > p{
+      color: #fff;
+  }
+  .fixed_header{
+    width: 100px;
+    table-layout: fixed;
+    border-collapse: collapse;
+    background: white;
+    color:black;
+}
+
+.fixed_header tbody{
+  display:block;
+  width: 100%;
+  overflow: auto;
+  height: 250px;
+}
+
+.fixed_header thead tr {
+   display: block;
+}
+
+.fixed_header thead {
+  background: #6441a5;
+  color:#fff;
+}
+
+.fixed_header th, .fixed_header td {
+  padding: 15px;
+  text-align: left;
+  width: 500px;
+  
+}
+      
       </style>
 </head>
 <body>
@@ -25,19 +59,13 @@ twitch.rig.log('LOADED');
     </script>
     
     <span><a class="close" href="video_overlay.html">&times;</a></span>
-    <style>
-    th, td {
-  padding: 5px;
-  text-align: left;    
-}
-#debugOutput > p{
-    color: #fff;
-}
-    </style>
+  
       <div id="debugOutput">
         <p>Waiting for input...</p>
       </div>
-        <table style="width:100%" id="donationTable">
+
+      
+        <table style="width:100%" id="donationTable" class="fixed_header">
             <thead>
                 <tr>
                     <th>Country</th>
