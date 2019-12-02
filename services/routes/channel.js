@@ -26,6 +26,11 @@ module.exports = [
       method: 'GET',
       path: '/channel/userCountryDonations',
       handler: userCountryDonationsHandler
+    },
+    {
+      method: 'GET',
+      path: '/channel/amountOfUsersDonating',
+      handler: amountOfUsersDonating
     }
   ]
   
@@ -141,6 +146,19 @@ async function userCountryDonationsHandler(req, h)
     FROM dbo.Country
     INNER JOIN dbo.Donations ON dbo.Country.Country_id=dbo.Donations.country_id
     WHERE dbo.Donations.channel_id = ${channelId}`);
+
+  return h.response(countryQuery.recordset);
+}
+
+async function amountOfUsersDonating(req, h)
+{
+  const { country_id: countryId } = req.body;
+
+  const countryQuery = await sql.query(`
+  select country_id, sum(bits_used)as bits_total ,count(donation_id) as #ofDonations 
+  from TwitchAPI.dbo.Donations 
+  WHERE TwitchAPI.dbo.Donations.country_id = ${countryId}
+  group by [country_id] order by #ofDonations desc`);
 
   return h.response(countryQuery.recordset);
 }
