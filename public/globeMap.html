@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Globe Map</title>
-    <link rel="stylesheet" type="text/css" href="frontend.css">
-</head>
-<body>
+    <link rel="stylesheet" type="text/css" href="frontend.css" />
+  </head>
+  <body>
     <!-- If you use any external libraries, such as jQuery, you must include
       them as part of your extension.  Twitch does not allow extensions to link
       to external libraries. -->
-      <script src="js/jquery-3.4.1.min.js"></script>    
-      <script src="js/d3-4.2.2.min.js"></script>
-      <script src="js/d3-geo.v1.min.js"></script>
-      <script src="js/topojson.v2.min.js"></script>
-      <script src="js/versor.js"></script>
-    
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/d3-4.2.2.min.js"></script>
+    <script src="js/d3-geo.v1.min.js"></script>
+    <script src="js/topojson.v2.min.js"></script>
+    <script src="js/versor.js"></script>
+    <script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
+
     <span><a class="close" href="video_overlay.html">&times;</a></span>
+    <span id="mapType" data-map-type="globe"></span>
+
     <!-- Show selected country -->
     <h2 id="current"></h2>
-    
+
     <!--Render rotating globe -->
-    <canvas id="globe"></canvas>
+    <canvas id="overlayMap"></canvas>
 
     <!-- Tooltip showing country information -->
     <div id="tooltip">
-      <span id="Name"></span><br>
+      <span id="Name"></span><br />
       <span id="Name2"></span>
     </div>
-        <!-- Our  Libraries -->
-        <script src="js/globeMap.js"></script>
-</body>
+    <!-- Our  Libraries -->
+    <script src="js/overlayMap.mjs" type="module"></script>
+  </body>
 </html>
