@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
     <title>Globe Map</title>
     <style>
       th, td {
     padding: 5px;
-    text-align: left;    
+    text-align: left;
   }
   #debugOutput > p{
       color: #fff;
@@ -38,9 +40,17 @@
   padding: 15px;
   text-align: left;
   width: 500px;
-  
 }
-      
+
+.close{
+  position: absolute;
+  right: 10px;
+  top: 50px;
+  font-size: 3em;
+  color: #fff;
+  cursor: pointer;
+}
+
       </style>
 </head>
 <body>
@@ -57,14 +67,14 @@
 twitch.rig.log('LOADED');
 
     </script>
-    
+
     <span><a class="close" href="video_overlay.html">&times;</a></span>
-  
+
       <div id="debugOutput">
         <p>Waiting for input...</p>
       </div>
 
-      
+
         <table style="width:100%" id="donationTable" class="fixed_header">
             <thead>
                 <tr>
