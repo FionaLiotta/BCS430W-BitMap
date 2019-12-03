@@ -1,65 +1,73 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Viewer Page</title>
-    <link rel="stylesheet"
-    href="styles.css"
+   <title>Viewer Page</title>
+   <link rel="stylesheet" href="styles.css">
+   <link rel="stylesheet" href="focusGlobe.css">
+   <script src="https://d3js.org/d3.v3.min.js"></script>
+   <script src="https://d3js.org/topojson.v1.min.js"></script>
+   <script src="https://d3js.org/queue.v1.min.js"></script>
+   <script src="./js/countryColor.mjs" type="module"></script>
+   <script src="./js/focusGlobe.mjs" type="module"></script>
 </head>
+
 <body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
 
-    <div id="app" class="full-height"></div>
-    <script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
-    <script src="viewer.js" type="text/javascript"></script>
-    <span class="open">&#9776;</span>
-    <p></p>
-    <div class="overlay">
-  <nav>
-		<menu>
-			<menuitem id="demo1">
-				<a>Menu</a>
-				<menu>
-					<menuitem><a href="about.html">About Us</a></menuitem>
+   <div id="app" class="full-height"></div>
+   <div id="focusGlobe"></div>
+   <script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+   <script src="viewer.js" type="text/javascript"></script>
+   <span class="open">&#9776;</span>
+   <p></p>
+   <div class="overlay">
+      <nav>
+         <menu>
+            <menuitem id="demo1">
+            <a>Menu</a>
+            <menu>
+               <menuitem><a href="about.html">About Us</a></menuitem>
                <menuitem>
-                  <a>Map Menu</a>
-                  <menu>
-                     <menuitem><a href="flatMap.html">Flat Map</a></menuitem>
-                     <menuitem><a href="globeMap.html">Globe Map</a></menuitem>
-                     <menuitem><a href="donationTable.html">Donation Table</a></menuitem>
-                     
-                  </menu>
+               <a>Map Menu</a>
+               <menu>
+                  <menuitem><a href="flatMap.html">Flat Map</a></menuitem>
+                  <menuitem><a href="globeMap.html">Globe Map</a></menuitem>
+                  <menuitem><a href="donationTable.html">Donation Table</a></menuitem>
+
+               </menu>
                </menuitem>
-					<menuitem><a>Help Guide</a></menuitem>
-					<menuitem id="demo2">
-						<a>Even More</a>
-						<menu>
-							<menuitem id="demo3">
-								<a>Deeper</a>
-								<menu>
-									<menuitem><a>deep 1</a></menuitem>
-									<menuitem><a>deep 2</a></menuitem>
-									<menuitem><a>deep 3</a></menuitem>
-								</menu>
-							</menuitem>
-							<menuitem><a>test</a></menuitem>
-						</menu>
-					</menuitem>
-				</menu>
-			</menuitem>
-         <menuitem><a>Place Holder</a></menuitem>
-		</menu>
-	</nav>
+               <menuitem><a>Help Guide</a></menuitem>
+               <menuitem id="demo2">
+               <a>Even More</a>
+               <menu>
+                  <menuitem id="demo3">
+                  <a>Deeper</a>
+                  <menu>
+                     <menuitem><a>deep 1</a></menuitem>
+                     <menuitem><a>deep 2</a></menuitem>
+                     <menuitem><a>deep 3</a></menuitem>
+                  </menu>
+                  </menuitem>
+                  <menuitem><a>test</a></menuitem>
+               </menu>
+               </menuitem>
+            </menu>
+            </menuitem>
+            <menuitem><a>Place Holder</a></menuitem>
+         </menu>
+      </nav>
       <span class="close">&times;</span>
       <ul>
-        <!-- <a href="#">Home</a>
+         <!-- <a href="#">Home</a>
         <a href="#">About</a>
         <a href="#">Services</a>
         <a href="#">Contacts</a> -->
       </ul>
-    </div>
-    <script src="leaderboard.js"></script>
-    <script src="script.js"></script>
+   </div>
+   <script src="leaderboard.js"></script>
+   <script src="script.js"></script>
 </body>
+
 </html>

@@ -69,7 +69,7 @@ var path = d3.geo.path()
 
 //SVG container
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("#focusGlobe").append("svg")
 .attr("width", width)
 .attr("height", height);
 
@@ -80,10 +80,12 @@ svg.append("path")
 .attr("class", "water")
 .attr("d", path);
 
-var countryTooltip = d3.select("body").append("div").attr("class", "countryTooltip"),
-bitsTooltip = d3.select("body").append("div").attr("class", "bitsTooltip"),
-countryList = d3.select("body").append("select").attr("name", "countries");
+var countryTooltip = d3.select("#focusGlobe").append("div").attr("class", "countryTooltip"),
+bitsTooltip = d3.select("#focusGlobe").append("div").attr("class", "bitsTooltip"),
+countryList = d3.select("#focusGlobe").append("select").attr("name", "countries");
 
+let hideSelect = document.querySelector('select');
+hideSelect.classList.add('vis-hidden');
 
 queue()
 .defer(d3.json, "./custom.geo.json")
@@ -123,7 +125,7 @@ function ready(error, world, countryData) {
 
     // Twitch listening stuff
     var twitch = window.Twitch.ext;
-    const body = document.querySelector('body');
+    const focusGlobe = document.querySelector('#focusGlobe');
     twitch.listen('broadcast', function (target, contentType, payload) {
 
 
@@ -145,7 +147,7 @@ function ready(error, world, countryData) {
 
             bitsTooltip.text(`${jsonPayload.bits_used} Bits`)
             .style("left", (15) + "px")
-            .style("bottom", (15) + "px")
+            .style("top", (2.5) + "em")
             .style("display", "block")
             .style("opacity", 1);
 
@@ -153,7 +155,7 @@ function ready(error, world, countryData) {
             clearTimeout(this.fadeTimer);
 
             // Show map and rotate to show highlighted country.
-            body.classList.add('opaque');
+            focusGlobe.classList.add('opaque');
             (function transition() 
             {
             d3.transition()
@@ -179,7 +181,7 @@ function ready(error, world, countryData) {
             
             })();
             this.fadeTimer = setTimeout(() => {
-                body.classList.remove('opaque');
+                focusGlobe.classList.remove('opaque');
             }, 5000);
         }
         else
@@ -201,10 +203,10 @@ function ready(error, world, countryData) {
             clearTimeout(this.fadeTimer);
 
             // Show map and rotate to show highlighted country.
-            body.classList.add('opaque');
+            focusGlobe.classList.add('opaque');
 
             this.fadeTimer = setTimeout(() => {
-                body.classList.remove('opaque');
+                focusGlobe.classList.remove('opaque');
             }, 5000);
         }
         
