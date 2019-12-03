@@ -108,7 +108,7 @@ nav a {
    background:#75F;
    color:#FFF;
    min-width:190px;
-   transition: background 0.5s, color 0.5s, transform 0.5s;
+   transition: background 0.25s, color 0.25s, transform 0.25s;
    margin:0px 6px 6px 0px;
    padding:20px 40px;
    box-sizing:border-box;
@@ -145,7 +145,7 @@ nav menuitem > menu > menuitem > a + menu:after{
 }
 
 nav > menu > menuitem > menu > menuitem{
-   transition: transform 0.6s, opacity 0.6s;
+   transition: transform 0.25s, opacity 0.6s;
    transform:translateY(150%);
    opacity:0;
 }
@@ -156,7 +156,7 @@ nav > menu > menuitem.hover > menu > menuitem{
 }
 
 menuitem > menu > menuitem > menu > menuitem{
-   transition: transform 0.6s, opacity 0.6s;
+   transition: transform 0.25s, opacity 0.6s;
    transform:translateX(195px) translateY(0%);
    opacity: 0;
 }
