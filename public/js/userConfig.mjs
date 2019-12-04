@@ -26,7 +26,7 @@ async function fetchConfig()
         headers: {'Authorization': 'Bearer ' + token},
     }
     try{
-        let response = await fetch('http://twitchmapebs.azurewebsites.net/user/config' , configRequest);
+        let response = await fetch('https://twitchmapebs.azurewebsites.net/user/config' , configRequest);
         myConfig = await response.json();
     }
     catch (err)
@@ -49,7 +49,7 @@ configForm.addEventListener('submit', async (e) => {
         headers: {'Authorization': 'Bearer ' + token},
         body: userCountry
     }
-    let response = await fetch('http://twitchmapebs.azurewebsites.net/user/config' , queryRequest);
+    let response = await fetch('https://twitchmapebs.azurewebsites.net/user/config' , queryRequest);
     const resJSON = await response.json();
     twitch.rig.log(JSON.stringify(resJSON));
 });
