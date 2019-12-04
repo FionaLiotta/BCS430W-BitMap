@@ -1,0 +1,51 @@
+body
+{
+  background-color: #333;
+  color: #ccc;
+}
+
+form
+{
+    display: flex;
+    flex-direction: column;
+    margin: 2em;
+}
+
+select {
+  border: solid #aaa 1px;
+  padding: 3px;
+  margin: 1em;
+  height: 2em;
+  border-radius: .5em;
+  box-shadow: inset 1px 1px 2px #ddd8dc;
+}
+
+.btn
+{
+  height: 4em;
+  width: auto;
+  border: solid #aaa 1px;
+  padding: 3px;
+  border-radius: .5em;
+  background-color: mediumslateblue;
+  font-weight: bold;
+}
+
+.btn:hover
+{
+  cursor: pointer;
+}
+
+.btn:active
+{
+  background-color: #aaa;
+}
+
+.hidden{
+  visibility: hidden;
+}
+
+#configForm
+{
+  width: 33%;
+}
