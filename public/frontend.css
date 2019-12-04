@@ -1,7 +1,7 @@
 body
 {
-  background-color: black;
-  color: gainsboro;
+  background-color: #333;
+  color: #ccc;
 }
 
 form
@@ -12,7 +12,7 @@ form
 }
 
 select {
-  border: solid #ccc 1px;
+  border: solid #aaa 1px;
   padding: 3px;
   margin: 1em;
   height: 2em;
@@ -24,7 +24,7 @@ select {
 {
   height: 4em;
   width: auto;
-  border: solid #ccc 1px;
+  border: solid #aaa 1px;
   padding: 3px;
   border-radius: .5em;
   background-color: mediumslateblue;
@@ -38,9 +38,14 @@ select {
 
 .btn:active
 {
-  background-color: white;
+  background-color: #aaa;
 }
 
 .hidden{
   visibility: hidden;
+}
+
+#configForm
+{
+  width: 33%;
 }
