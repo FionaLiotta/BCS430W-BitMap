@@ -10,6 +10,20 @@ let token = '';
 let tuid = '';
 let configId = 0;
 
+const debugVisible = document.querySelector('input[name="debugVisible"]');
+const debugDiv = document.querySelector('#debugDiv');
+debugVisible.onchange = (e) =>
+{
+    if(debugVisible.checked)
+    {
+        debugDiv.classList.remove('hidden');
+    }
+    else
+    {
+        debugDiv.classList.add('hidden');
+    }
+}
+
 // Populate country selection dropdown
 let html = '';
 

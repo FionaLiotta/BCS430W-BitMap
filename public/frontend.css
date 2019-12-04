@@ -53,3 +53,7 @@ form
   color: #fff;
   cursor: pointer;
 }
+
+.hidden{
+  visibility: hidden;
+}
