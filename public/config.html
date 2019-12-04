@@ -14,14 +14,15 @@
     <script src="js/config.mjs" type="module" defer></script>
     <h2>Config Page</h2>
     <form id="configForm">
+      <label>Streamer Country:</label>
       <select id="countrySelect">
       </select>
-      
+      <label>Map Type:</label>
       <select id="mapType">
         <option value="Globe">Globe</option>
         <option value="Flat">Flat</option>
       </select>
-      <input type="submit" value="Update Config">
+      <input type="submit" value="Update Config" class="btn">
     </form>
     <input type="checkbox" name="debugVisible">
     <label for="debugVisible">Debug Output</label>
