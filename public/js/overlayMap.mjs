@@ -1030,27 +1030,6 @@ var twitch = window.Twitch.ext;
 window.addEventListener("resize", scale);
 
 //
-// Handler
-//
-function getSelectedCountry(country) {
-  var country = countryList.find(function(c) {
-    return c.id === country.id.toString();
-  });
-
-  return country || {};
-}
-
-function enter(country) {
-  var country = getSelectedCountry(country);
-  var countryName = country.name || "";
-  current.text(countryName);
-}
-
-function leave(country) {
-  current.text("");
-}
-
-//
 // Variables
 //
 
@@ -1069,7 +1048,6 @@ var angles = { x: -20, y: 40, z: 0 };
 var colorWater = "#6441a5";
 var colorLand = "black";
 var colorGraticule = "white";
-var colorCountry = "yellow";
 var current = d3.select("#current");
 var canvas = d3.select("#overlayMap");
 var context = canvas.node().getContext("2d");
@@ -1085,12 +1063,32 @@ var degPerMs = degPerSec / 1000;
 var width, height;
 var land, countries;
 var countryList;
-var autorotate, now, diff, roation;
+var autorotate, now, diff, rotation;
 var currentCountry;
 
 //
 // Functions
 //
+
+
+function getSelectedCountry(country) {
+  var country = countryList.find(function(c) {
+    return c.id === country.id.toString();
+  });
+
+  return country || {};
+}
+
+function enter(country) {
+  var country = getSelectedCountry(country);
+  var countryName = country.name || "";
+  current.text(countryName);
+}
+
+function leave(country) {
+  current.text("");
+}
+
 function setAngles() {
   var rotation = projection.rotate()
   rotation[0] = angles.y
@@ -1335,9 +1333,9 @@ twitch.onAuthorized(async function(auth) {
       land = topojson.feature(world, world.objects.land);
       countries = topojson.feature(world, world.objects.countries);
       countryList = cList;
-
-      scale();
       renderMap();
+      scale();
+      
       autorotate = d3.timer(rotate);
 
     });
